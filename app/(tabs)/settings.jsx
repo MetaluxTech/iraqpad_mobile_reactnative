@@ -22,11 +22,11 @@ export default function Page() {
       <View className="mt-24 p-3  flex-row-reverse items-center justify-between">
         {/* Image & name */}
         <View className="flex-row-reverse items-center justify-start">
-          {/* {isSignedIn && 
+          {isSignedIn && 
             <Image className='w-[50] h-[50] ml-3 rounded-full' source={{uri : user.imageUrl }}/> 
-          } */}
+          }
           <View>
-            <Text className="text-lg text-right text-black font-cairoRegular dark:text-white">{isSignedIn ?user.firstName : 'ياهلا بالضيف'}</Text>
+            <Text className="text-lg text-right text-black font-cairoRegular dark:text-white">{isSignedIn ?user.fullName : 'ياهلا بالضيف'}</Text>
             {!isSignedIn && <Text className="text-sm text-darkgray font-cairoLight mt-1 dark:text-whitegray">سجل دخول واستمتع بأفضل تجربة</Text>}
             {isSignedIn && <Text className="text-sm text-darkgray font-cairoLight dark:text-whitegray">{user.primaryEmailAddress.emailAddress}</Text>}
           </View>

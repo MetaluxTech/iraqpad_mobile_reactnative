@@ -6,10 +6,10 @@ import SliderImage from '../../components/SliderImage'
 import Card from '../../components/Card'
 import {router, useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'nativewind'
+
 const { height, width } = Dimensions.get('window')
 export default function home() {
-  
+
   return (
       <View className="flex-1 bg-slate-100 dark:bg-black">
         
@@ -70,7 +70,7 @@ export default function home() {
             <Card stories={newstories}/>
           </View>
         </ScrollView>
-        
+        <StatusBar style={"light"} />
       </View>
   )
 }
