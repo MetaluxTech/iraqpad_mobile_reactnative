@@ -40,12 +40,12 @@ export default function Page() {
       <View className='mt-10'>
         <Text className="text-lg mb-3 text-black font-cairoRegular dark:text-white">الاعدادات</Text>
         {/* DarkMode */}
-        <View className="flex-row-reverse justify-between items-center bg-white dark:bg-blackdark p-3 mb-3 rounded-md shadow-xl">
+        <View className="flex-row-reverse justify-between items-center bg-white dark:bg-blackdark p-3 mb-3 rounded-md shadow">
           <Text className="font-cairoRegular text-md dark:text-whitegray">الدارك مود</Text>
           <Switch className='transition-all' value={colorScheme=='dark'} onChange={toggleColorScheme} />
         </View>
         {/* Notifications */}
-        <View className="flex-row-reverse justify-between items-center bg-white dark:bg-blackdark p-3 mb-3 rounded-md shadow-xl">
+        <View className="flex-row-reverse justify-between items-center bg-white dark:bg-blackdark p-3 mb-3 rounded-md shadow">
           <Text className="font-cairoRegular text-md dark:text-whitegray">تفعيل الاشعارات</Text>
           <Switch/>
         </View>
@@ -54,14 +54,14 @@ export default function Page() {
       <View className=' mb-3 rounded-md   '>
       {isSignedIn ?
       <TouchableOpacity
-        className="flex-row items-center justify-end  p-3 mb-3 rounded-md shadow-xl bg-white dark:bg-blackdark"
+        className="flex-row items-center justify-end  p-3 mt-5 rounded-md shadow bg-white dark:bg-blackdark"
         onPress={()=> signOut()}
       >
         <Text className="text-red dark:text-secondary font-cairoMedium mr-1">تسجيل خروج</Text>
         <Icon name={'log-out-outline'} size={30} color={colorScheme=='dark'? '#FE7574' :'red'} />
       </TouchableOpacity> : 
       <TouchableOpacity 
-        className="flex-row items-center justify-end bg-white p-3 mb-3 rounded-md shadow-xl dark:bg-blackdark" 
+        className="flex-row items-center justify-end bg-white p-3 mt-5 rounded-md shadow dark:bg-blackdark" 
         onPress={()=>router.push('(modals)/login')}
       >
         <Text className="font-cairoMedium mr-1 dark:text-whitegray">تسجيل دخول</Text>

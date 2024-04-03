@@ -10,9 +10,9 @@ import { useColorScheme } from 'nativewind';
 const Profile = () => {
   const {colorScheme} = useColorScheme();
   const { user} = useUser();
-  const [firstName , setFirstName] = useState(user.firstName);
+  const [firstName , setFirstName] = useState(user.firstName); 
   const [lastName , setLastName] = useState(user.lastName);
-  const [userName , setUserName] = useState(user.username);
+  const [username , setUserName] = useState(user.username);
   const [email , setEmail] = useState(user.emailAddresses[0].emailAddress);
   const [edit , setEdit] = useState(false);
 
@@ -20,18 +20,18 @@ const Profile = () => {
     if(!user) return;
     setFirstName(user.firstName);
     setLastName(user.lastName);
-    // setUserName(user.username);
+    setUserName(user.username);
     setEmail(user.emailAddresses[0].emailAddress);
   },[user])
 
   // Update User Information
   const onSaveUser = async () =>{
     try{  
-      if(!firstName || !lastName  ) return;
+      if(!firstName || !lastName || !username  ) return;
       await user.update({
         firstName,
         lastName,
-        // userName
+        username
       }
       )}catch(error){
         console.log(error)
@@ -92,29 +92,28 @@ const Profile = () => {
         <Text className="text-black text-xl font-cairoBold dark:text-whitegray">المعلومات</Text>
         {/* First Name */}
         <View 
-          style={styles.shadow} 
-          className='overflow-hidden flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+          className='overflow-hidden flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray  ml-2">الاسم الاول : </Text>
           <Text className='font-cairoMedium  dark:text-whitegray'>{firstName}</Text>
         </View>
         {/* Last Name */}
-        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2">الاسم الاخير : </Text>
           <Text className='font-cairoMedium  dark:text-whitegray'>{lastName}</Text>
         </View>
         {/* User Name */}
-        {/* <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2"> اليوزر نيم : </Text>
-          <Text className='font-cairoMedium  dark:text-whitegray'>{userName}</Text>
-        </View> */}
+          <Text className='font-cairoMedium  dark:text-whitegray'>{username}</Text>
+        </View>
         {/* Email */}
-        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2">الايميل : </Text>
           <Text className='dark:text-whitegray'>{email}</Text>
         </View>
         {/* Update Informations */}
         <TouchableOpacity
-          className="flex-row justify-center items-center mt-10 bg-[#148DFF] p-3 rounded-sm"
+          className="flex-row justify-center items-center mt-10 bg-[#148DFF] shadow p-3 rounded-sm"
           onPress={()=>setEdit(true)}
         >
           <Icon className='' name={'create-outline'} size={25} color={'#fff'} />
@@ -125,8 +124,8 @@ const Profile = () => {
         <Text className="text-black text-xl font-cairoBold dark:text-whitegray">تحديث المعلومات</Text>
         {/* First Name */}
         <View 
-          style={styles.shadow} 
-          className='overflow-hidden flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+          
+          className='overflow-hidden flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray  ml-2">الاسم الاول : </Text>
           <TextInput 
             value={firstName || ''} 
@@ -135,7 +134,7 @@ const Profile = () => {
           />
         </View>
         {/* Last Name */}
-        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2">الاسم الاخير : </Text>
           <TextInput 
             value={lastName || ''} 
@@ -144,18 +143,18 @@ const Profile = () => {
           />
         </View>
         {/* User Name */}
-        {/* <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2"> اليوزر نيم : </Text>
           <TextInput 
-            value={userName || ''} 
+            value={username || ''} 
             onChangeText={setUserName} 
             className=' font-cairoMedium rounded text-darkgray border-darkgray border w-[180] px-2'
           />
-        </View> */}
+        </View>
 
         {/* Update Informations */}
         <TouchableOpacity
-          className="mt-10 bg-green-600  py-2 rounded-sm flex-row justify-center items-center"
+          className="mt-10 bg-green-600 shadow py-2 rounded-sm flex-row justify-center items-center"
           onPress={onSaveUser}
         >
           <Icon className='' name={'checkmark-outline'} size={30} color={'#fff'} />

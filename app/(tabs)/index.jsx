@@ -31,7 +31,7 @@ export default function home() {
                   return(
                     <TouchableOpacity>
                       <Text 
-                        className="font-cairoMedium border-secondary border shadow-2xl text-secondary  px-6 py-3 rounded-md mx-2">
+                        className="font-cairoMedium border-secondary border  text-secondary  px-6 py-3 rounded-md mx-2">
                         {item.name}
                       </Text>
                     </TouchableOpacity>

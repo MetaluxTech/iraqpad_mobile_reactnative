@@ -1,31 +1,16 @@
 import React from "react";
-import { Image, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useOAuth, useSignIn } from "@clerk/clerk-expo";
+import { StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {  useSignIn } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useWarmUpBrowser } from '../../hooks/useWarmUpBrowser';
 import { useColorScheme } from "nativewind";
+import SignInWithOAuth from "../../components/SignInWithOAuth";
 export default function LoginPage() {
   const {colorScheme} = useColorScheme();
-  useWarmUpBrowser();
   const router = useRouter();
   const { signIn, setActive, isLoaded } = useSignIn();
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
-  
-  // Register With Google
-  const { startOAuthFlow: googleAuth } = useOAuth({ strategy: 'oauth_google' });
-  const onSelectAuth = async () => {
-    try {
-      const { createdSessionId, setActive } = await googleAuth(); 
-      if (createdSessionId) {
-        setActive({ session: createdSessionId });
-        router.push('/');
-      }
-    } catch (err) {
-      console.error( err);
-    }
-  };
   const onSignInPress = async () => {
     if (!isLoaded) {
       return;
@@ -49,7 +34,7 @@ export default function LoginPage() {
           onPress={()=>router.navigate('/')}
           className="absolute top-10 left-5  "
       >
-        <Icon name={'arrow-back-outline'} size={30} color={'black'} />
+        <Icon name={'arrow-back-outline'} size={30} color={colorScheme=="dark"? "white": "black"} />
       </TouchableOpacity>
       {/* Header Style */}
       <View className='flex h-[200] items-center justify-end '>
@@ -116,15 +101,8 @@ export default function LoginPage() {
             />
           </View>
           {/* Register With Google */}
-          <TouchableOpacity 
-            className="border dark:border-whitegray p-2 flex-row justify-center items-center mt-5 rounded-md shadow-xl"
-            onPress={() => onSelectAuth()}
-          >
-            <Icon name={'logo-google'} size={30} color={colorScheme=="dark"? "white": "black"} />
-            <Text className="ml-3 text-darkgray dark:text-whitegray font-cairoLight">تسجيل دخول باستخدام حساب كوكل</Text>
-          </TouchableOpacity>
+          <SignInWithOAuth />
       </View>
-      
     </View>
   );
 }
