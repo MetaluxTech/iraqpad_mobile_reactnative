@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
-import { useColorScheme } from 'nativewind';
+import { ThemeContext } from '../../common/ThemeProvider';
 const Profile = () => {
-  const {colorScheme} = useColorScheme();
+  const {mode} = useContext(ThemeContext);
   const { user} = useUser();
   const [firstName , setFirstName] = useState(user.firstName); 
   const [lastName , setLastName] = useState(user.lastName);

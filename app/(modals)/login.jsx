@@ -1,14 +1,14 @@
 import React from "react";
 import { StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
-import {  useSignIn } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
+import {  useAuth, useSignIn } from "@clerk/clerk-expo";
+import { router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useColorScheme } from "nativewind";
 import SignInWithOAuth from "../../components/SignInWithOAuth";
+import { ThemeContext } from "../../common/ThemeProvider";
 export default function LoginPage() {
-  const {colorScheme} = useColorScheme();
-  const router = useRouter();
+  const {colorScheme} = useContext(ThemeContext);
   const { signIn, setActive, isLoaded } = useSignIn();
+  const{isSignedIn} = useAuth()
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const onSignInPress = async () => {
@@ -22,6 +22,7 @@ export default function LoginPage() {
       });
       await setActive({ session: completeSignIn.createdSessionId });
       router.push('/')
+      
     } catch (err) {
       alert("خطأ في تسجيل الدخول");
     }

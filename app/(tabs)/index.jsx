@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../../components/Header'
 import { subcategory, image , maincategory, newstories, beststories} from '../../common/data'
 import SliderImage from '../../components/SliderImage'
@@ -9,7 +9,6 @@ import { StatusBar } from 'expo-status-bar';
 
 const { height, width } = Dimensions.get('window')
 export default function home() {
-
   return (
       <View className="flex-1 bg-slate-100 dark:bg-black">
         

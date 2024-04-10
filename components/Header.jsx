@@ -23,16 +23,16 @@ export default function Header() {
           {/* Search Btn */}
           <TouchableOpacity 
             onPress={()=>router.push('search')}
-            className="bg-white p-2 rounded-full mr-2"
+            className="border border-white p-2 rounded-full mr-2"
           >
-            <Icon name='search' size={20} color={'#FE7574'}/>
+            <Icon name='search' size={20} color={'white'}/>
           </TouchableOpacity>
           {/* Notifications Btn */}
           <TouchableOpacity 
             onPress={()=>router.push('notifications')}
-            className="bg-white p-2 rounded-full"
+            className="border border-white p-2 rounded-full"
           >
-            <Icon name='notifications' size={20} color={'#FE7574'}/>
+            <Icon name='notifications' size={20} color={'white'}/>
           </TouchableOpacity>
         </View>
       </View>

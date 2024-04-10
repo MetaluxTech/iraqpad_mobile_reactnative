@@ -5,7 +5,7 @@ import Carousel , { ParallaxImage }  from 'react-native-snap-carousel';
 const { height, width } = Dimensions.get('window')
 export default function SliderImage({image}) {
   return (
-    <View className='mt-4 mb-3 mr-4'>
+    <View className=' mb-3 mr-4'>
       
         <Carousel
           data={image}
@@ -15,7 +15,7 @@ export default function SliderImage({image}) {
           hasParallaxImages={true} //
           renderItem={ItemCard}
           firstItem={1}
-          itemWidth={width-70}
+          itemWidth={width}
           sliderWidth={width}
           slideStyle={{display: 'flex', alignItems: 'center'}}
         />
@@ -24,10 +24,10 @@ export default function SliderImage({image}) {
 }
 const ItemCard= ({item , index},parallaxProps)=>{
   return(
-      <View  style={{width:width-70 ,height:200}} >
+      <View  style={{width:width ,height:200}} >
         <ParallaxImage
           source={item}
-          containerStyle={{borderRadius:10,flex:1}}
+          containerStyle={{flex:1}}
           style={{resizeMode:'cover' , width:width }}
           parallaxFactor={1}
           {...parallaxProps}

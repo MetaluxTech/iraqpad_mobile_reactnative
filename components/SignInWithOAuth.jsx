@@ -10,9 +10,10 @@ import { useColorScheme } from "nativewind";
 WebBrowser.maybeCompleteAuthSession();
 
 const SignInWithOAuth = () => {
+    useWarmUpBrowser();
     const router = useRouter()
     const { colorScheme } = useColorScheme();
-    useWarmUpBrowser();
+    
     const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
 
     const onPress = async () => {
