@@ -1,7 +1,6 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'nativewind';
 import { ThemeContext } from '../../common/ThemeProvider';
 const notifications = () => {
   const {colorScheme} = useContext(ThemeContext);

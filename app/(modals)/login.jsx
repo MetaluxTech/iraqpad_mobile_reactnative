@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 import {  useAuth, useSignIn } from "@clerk/clerk-expo";
 import { router } from "expo-router";

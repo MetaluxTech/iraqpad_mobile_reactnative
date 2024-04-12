@@ -3,12 +3,12 @@ import { useAuth, useUser } from '@clerk/clerk-expo';
 import { router } from 'expo-router';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import * as ImagePicker from 'expo-image-picker';
 import { ThemeContext } from '../../common/ThemeProvider';
 const Profile = () => {
-  const {mode} = useContext(ThemeContext);
+  const {colorScheme} = useContext(ThemeContext);
   const { user} = useUser();
   const [firstName , setFirstName] = useState(user.firstName); 
   const [lastName , setLastName] = useState(user.lastName);

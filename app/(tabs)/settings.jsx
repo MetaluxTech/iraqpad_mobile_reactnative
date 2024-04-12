@@ -3,15 +3,14 @@ import React, { useContext } from 'react'
 import { useAuth,useUser } from '@clerk/clerk-expo'
 import { Link, router } from 'expo-router'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useColorScheme } from 'nativewind';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 export default function Page() {
-  const { colorScheme,setColorScheme} = useContext(ThemeContext)
+  const { colorScheme,toggleTheme} = useContext(ThemeContext)
   const { user } = useUser();
   const {signOut ,isSignedIn} = useAuth();
   return (
-    <View className="flex-1 relative pt-10 px-4 bg-slate-200 dark:bg-black transition-colors">
+    <View  className=" flex-1 relative pt-10 px-4 bg-slate-200 dark:bg-black">
       {/* Close Button */}
       <TouchableOpacity
           onPress={()=>router.navigate('/')}
@@ -44,8 +43,7 @@ export default function Page() {
         <View className="flex-row-reverse justify-between items-center bg-white dark:bg-blackdark p-3 mb-3 rounded-md shadow">
           <Text className="font-cairoRegular text-md dark:text-whitegray">الدارك مود</Text>
           <View className='flex-row w-[60] justify-between items-center'>
-            <Icon className='' name={'sunny-outline'} onPress={()=>setColorScheme('light')} size={20} color={colorScheme=='dark' ?'white':'black'} />
-            <Icon className='' name={'moon-outline'} onPress={()=>setColorScheme('dark')} size={20} color={colorScheme=='dark' ?'white':'black'} />
+            <Icon className='transition' name={colorScheme=='dark' ?'sunny-outline':'moon-outline'} onPress={()=>toggleTheme()} size={25} color={colorScheme=='dark' ?'white':'black'} />
           </View>
           {/* <Switch className='transition-all' value={colorScheme === "dark"} onValueChange={toggleColorScheme} /> */}
         </View>

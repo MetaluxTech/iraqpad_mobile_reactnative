@@ -57,7 +57,7 @@ export default function RootLayout() {
   }
 
   return(
-    <ThemeProvider>
+    <ThemeProvider >
       <ClerkProvider publishableKey={Constants.expoConfig.extra.clerkPublishableKey} tokenCache={tokenCache}>
         <RootLayoutNav />
       </ClerkProvider>

@@ -1,6 +1,5 @@
 import { View, Text } from 'react-native'
-import React from 'react'
-import { useColorScheme } from 'nativewind';
+import React, { useContext } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 const search = () => {
