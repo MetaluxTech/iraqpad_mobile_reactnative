@@ -5,7 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 import { partstory } from '../../common/data';
-import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@clerk/clerk-expo';
 import { Alert } from 'react-native';
 export default function index() {
@@ -27,7 +26,7 @@ export default function index() {
         />
         <View className="absolute bottom-8 flex-row-reverse justify-between px-4 w-full">
           <Text 
-            className=" text-white  text-4xl font-bold "
+            className=" text-white  text-2xl font-cairoBold "
           >
             {title}
           </Text>
@@ -79,7 +78,7 @@ export default function index() {
       </View>
       {/* Parts */}
       <View className="py-3 px-3">
-        <Text className="text-2xl font-bold text-black dark:text-white mb-3 mt-5">الفصول</Text>
+        <Text className="text-2xl font-cairoBold text-black dark:text-white mb-3 mt-5">الفصول</Text>
         <FlatList
           data={partstory}
           inverted={true}
@@ -92,8 +91,8 @@ export default function index() {
       </View>
       {/* Content */}
       <View className="px-4 py-5  dark:bg-black mx-2 ">
-        <Text className="text-2xl font-bold text-black dark:text-white mb-3">{title}</Text>
-        <Text className="text-sm text-darkgray dark:text-whitegray">{description}</Text>
+        <Text className="text-2xl font-cairoRegular text-black dark:text-white mb-2">{title}</Text>
+        <Text className="text-sm text-darkgray dark:text-whitegray font-cairoMedium">{description}</Text>
       </View>
       <StatusBar barStyle='light'/>
     </View>
@@ -119,7 +118,7 @@ const partStory = ({item})=>{
         className="absolute bottom-0 w-full h-full rounded-lg"
         colors={['transparent', 'rgba(0,0,0,.9)']}
       />
-        <Text className='absolute z-10 bottom-2 right-2 text-white'>{item.title}</Text>
+        <Text className='absolute z-10 bottom-2 right-2 text-white font-cairoRegular'>{item.title}</Text>
       </TouchableOpacity>
       
     </View>

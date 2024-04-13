@@ -1,15 +1,16 @@
 import { View, Text, Dimensions, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import Header from '../../components/Header'
 import { subcategory, image , maincategory, newstories, beststories} from '../../common/data'
 import SliderImage from '../../components/SliderImage'
 import Card from '../../components/Card'
 import {router, useRouter } from 'expo-router'
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar'; 
+import { ThemeContext } from '../../common/ThemeProvider'
 
 const { height, width } = Dimensions.get('window')
 export default function home() {
-
+  const { colorScheme} = useContext(ThemeContext)
   return (
       <View className="flex-1 bg-slate-100 dark:bg-black">
         
@@ -31,7 +32,7 @@ export default function home() {
                   return(
                     <TouchableOpacity>
                       <Text 
-                        className="font-cairoMedium border-secondary border shadow-2xl text-secondary  px-6 py-3 rounded-md mx-2">
+                        className="font-cairoMedium border-secondary border  text-secondary  px-6 py-3 rounded-md mx-2">
                         {item.name}
                       </Text>
                     </TouchableOpacity>
@@ -70,7 +71,7 @@ export default function home() {
             <Card stories={newstories}/>
           </View>
         </ScrollView>
-        <StatusBar style={"light"} />
+        <StatusBar style={colorScheme=="dark"? "light": "dark"} />
       </View>
   )
 }

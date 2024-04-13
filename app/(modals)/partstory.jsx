@@ -34,8 +34,8 @@ export default function index() {
       </View>
       {/* Content */}
       <View className="px-4 py-5 mt-5  mx-2 ">
-        <Text className="text-2xl font-bold text-black dark:text-white mb-3">{title}</Text>
-        <Text className="text-sm text-darkgray dark:text-whitegray">{description}</Text>
+        <Text className="text-2xl font-cairoBold text-black dark:text-white mb-3">{title}</Text>
+        <Text className="text-sm text-darkgray dark:text-whitegray font-cairoMedium">{description}</Text>
       </View>
       <StatusBar barStyle='light'/>
     </View>

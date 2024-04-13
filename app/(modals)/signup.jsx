@@ -7,17 +7,18 @@ import Icon from 'react-native-vector-icons/Ionicons';
 export default function SignUpScreen() {
 
 
-  
+  // useWarmUpBrowser();
   const router = useRouter();
   const { isLoaded, signUp, setActive } = useSignUp();
+
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
-  // const [username, setUserName] = React.useState("");
+  const [username, setUserName] = React.useState("");
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
+
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
-
     
   // start the sign up process.
   const onSignUpPress = async () => {
@@ -29,14 +30,12 @@ export default function SignUpScreen() {
       await signUp.create({
         firstName,
         lastName,
-        // username,
+        username,
         emailAddress,
         password,
       });
- 
       // send the email.
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
- 
       // change the UI to our pending section.
       setPendingVerification(true);
     } catch (err) {
@@ -99,15 +98,15 @@ export default function SignUpScreen() {
               onChangeText={(lastName) => setLastName(lastName)}
             />
           </View>
-          {/* <View className=" mb-2 w-full">
+          <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
             <TextInput
-              className="bg-slate-100  p-2 rounded-sm shadow-2xl"
-              autoCapitalize="none"
+              className="w-full"
+              // autoCapitalize="none"
               value={username}
-              placeholder="اليوزر نيم"
+              placeholder="user Name"
               onChangeText={(username) => setUserName(username)}
             />
-          </View> */}
+          </View>
           <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
             <TextInput
               className="w-full"

@@ -4,15 +4,15 @@ import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import * as SecureStore from "expo-secure-store";
-import { ClerkProvider, SignedIn, SignedOut, useAuth } from '@clerk/clerk-expo';
-import { StatusBar, Text, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import Constants from 'expo-constants';
-import { DarkTheme } from '@react-navigation/native';
+import { ThemeProvider } from '../common/ThemeProvider';
+
 const tokenCache = {
   async getToken(key) {
     try {
       return SecureStore.getItemAsync(key);
+
     } catch (err) {
       return null;
     }
@@ -57,9 +57,11 @@ export default function RootLayout() {
   }
 
   return(
-    <ClerkProvider publishableKey={Constants.expoConfig.extra.clerkPublishableKey} tokenCache={tokenCache}>
-      <RootLayoutNav />
-    </ClerkProvider>
+    <ThemeProvider >
+      <ClerkProvider publishableKey={Constants.expoConfig.extra.clerkPublishableKey} tokenCache={tokenCache}>
+        <RootLayoutNav />
+      </ClerkProvider>
+    </ThemeProvider>
   ) ;
 }
 
@@ -95,5 +97,4 @@ function RootLayoutNav() {
         headerShadowVisible:false,}}
       />
     </Stack>
-  );
-}
+  )}
