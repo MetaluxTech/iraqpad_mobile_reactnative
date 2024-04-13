@@ -1,0 +1,25 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Steps for building and deploying the app...
+
+      - name: Actions Status Discord
+        uses: sarisia/actions-status-discord@v1.13.1
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          status: ${{ job.status }}
+          content: "Build and Deploy Successful!"
+          username: Metalux_Offical
+          title: "Build and Deploy ✅"
+          description: "There is event triggered here 👋"
