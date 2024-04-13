@@ -24,7 +24,7 @@ export default function Card({stories}) {
 }
 const ItemCard= ({item })=>{
     return(
-        <View className=" ml-2 bg-white dark:bg-blackdark rounded-lg">
+        <View className=" ml-2 bg-white dark:bg-blackdark rounded-lg p-2">
             <TouchableOpacity
                 onPress={()=>router.push({
                     pathname: '/story',
@@ -34,22 +34,18 @@ const ItemCard= ({item })=>{
                 {/* Image */}
                 <View className='relative'>
                     <Image
-                        className=" rounded-t-lg"
+                        className=" rounded-lg"
                         source={item.image}
                         containerStyle={{borderRadius:10,flex:1}}
-                        style={{resizeMode:'cover' , width:width*0.44 ,height:height*0.25}}
-                    />
-                    <LinearGradient
-                        className="absolute bottom-0 w-full h-full"
-                        colors={['transparent', 'rgba(0,0,0,0.9)']}
+                        style={{resizeMode:'cover' , width:width*0.42 ,height:height*0.25}}
                     />
                 </View>
-                <View className="absolute top-2 left-2 flex-row shadow-2xl justify-center items-center bg-white py-1 px-2 rounded-lg">
+                <View className="absolute top-2 left-2 flex-row shadow justify-center items-center bg-white py-1 px-2 rounded-lg">
                     <Text className='text-black mr-1'>{item.rate}</Text>
                     <Ionicons name='star' size={20} color={'yellow'}/>
                 </View>
                 {/* Content */}
-                <View className="py-3 px-2">
+                <View className="py-3 px-1 ">
                     <Text className="text-lg font-cairoMedium dark:text-white">{item.title}</Text>
                     {/* Description I believe is not necessary */}
                     <Text className="text-darkgray dark:text-whitegray mb-2 font-cairoLight">{item.description.length >= 20 && item.description.slice(0,15)+'...'}</Text>
