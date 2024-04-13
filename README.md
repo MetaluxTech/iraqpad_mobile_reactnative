@@ -8,3 +8,4 @@ add cairo font and brand colors in tailwindcss
 completed dark mode but not use localstorage // need research
 completed profile for user
 completed settings page
+Notifications
