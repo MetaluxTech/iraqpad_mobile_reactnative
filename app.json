@@ -1,11 +1,16 @@
 {
   "expo": {
-    "name": "iraqpad",
-    "slug": "iraqpad",
+    "name": "IraqPad",
+    "slug": "iraq-pad",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "IraqPad",
+    "extra": {
+      "eas": {
+        "projectId": "8eaf19d3-673f-4cdc-b931-d612f4f2db5b"
+      }
+    },
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,10 +24,8 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+      "package": "local.iraqpad",
+      "versionCode": 1
     },
     "web": {
       "bundler": "metro",

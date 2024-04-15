@@ -73,7 +73,10 @@ function RootLayoutNav() {
     }
   },[isSignedIn])
   return (
-    <Stack screenOptions={{headerShown:false}}>
+    <Stack screenOptions={{
+      headerShown:false,
+      
+      }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="(modals)/story" />
       <Stack.Screen name="(modals)/profile" />
