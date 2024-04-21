@@ -14,7 +14,7 @@ export default function Header() {
           className="absolute bottom-0 w-full h-full"
           colors={['transparent', 'rgba(0,0,0,.9)']}
       />
-      <View className='px-5  flex justify-between items-center pt-12 flex-row absolute w-full h-full'>
+      <View className='px-5  flex-row-reverse justify-between items-center pt-12  absolute w-full h-full'>
         <Image 
           source={require('../assets/images/logo.png')}
           className='w-9 h-20'
@@ -28,12 +28,12 @@ export default function Header() {
             <Icon name='search' size={20} color={'white'}/>
           </TouchableOpacity>
           {/* Notifications Btn */}
-          <TouchableOpacity 
+          {/* <TouchableOpacity 
             onPress={()=>router.push('notifications')}
             className="border border-white p-2 rounded-full"
           >
             <Icon name='notifications' size={20} color={'white'}/>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </View>

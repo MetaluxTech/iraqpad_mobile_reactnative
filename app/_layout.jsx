@@ -7,11 +7,13 @@ import * as SecureStore from "expo-secure-store";
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import Constants from 'expo-constants';
 import { ThemeProvider } from '../common/ThemeProvider';
-
+import { I18nManager } from "react-native";
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
 const tokenCache = {
   async getToken(key) {
     try {
-      return SecureStore.getItemAsync(key);
+      return await SecureStore.getItemAsync(key);
 
     } catch (err) {
       return null;
@@ -19,7 +21,7 @@ const tokenCache = {
   },
   async saveToken(key, value) {
     try {
-      return SecureStore.setItemAsync(key, value);
+      return await SecureStore.setItemAsync(key, value);
     } catch (err) {
       return;
     }
@@ -55,10 +57,14 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  
   return(
     <ThemeProvider >
-      <ClerkProvider publishableKey={Constants.expoConfig.extra.clerkPublishableKey} tokenCache={tokenCache}>
+      <ClerkProvider  
+        secretKey={Constants.expoConfig.extra.clerkSecretKey} 
+        publishableKey={Constants.expoConfig.extra.clerkPublishableKey} 
+        tokenCache={tokenCache}
+      >
         <RootLayoutNav />
       </ClerkProvider>
     </ThemeProvider>
@@ -68,9 +74,12 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const { isLoaded,isSignedIn } = useAuth();
   useEffect(()=>{
-    if(isLoaded && !isSignedIn){
-      router.push('/(modals)/login')
-    }
+    if (!isLoaded) return;
+    if (isSignedIn ) {
+			router.replace('/');
+		} else if (!isSignedIn) {
+			router.replace('/(modals)/login');
+		}
   },[isSignedIn])
   return (
     <Stack screenOptions={{
@@ -101,3 +110,4 @@ function RootLayoutNav() {
       />
     </Stack>
   )}
+

@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 export default function index() {
-  const {title,image,description} = useLocalSearchParams();
+  const {title,picture,description} = useLocalSearchParams();
   // console.log(image)
   return (
     <View className='flex-1 dark:bg-black' >
@@ -13,7 +13,7 @@ export default function index() {
       <View className='relative'>
         <Image
           className="h-[250] w-full"
-          source={image}
+          source={{uri:picture}}
           resizeMode='cover'
         />
         <LinearGradient 
@@ -21,7 +21,7 @@ export default function index() {
           colors={['transparent', 'rgba(0,0,0,0.9)']}
         />
         <TouchableOpacity
-        className="absolute top-12 left-5"
+        className="absolute top-12 left-5 flex-row-reverse"
           onPress={()=>router.back()}
         >
           <Icon 
@@ -34,8 +34,8 @@ export default function index() {
       </View>
       {/* Content */}
       <View className="px-4 py-5 mt-5  mx-2 ">
-        <Text className="text-2xl font-cairoBold text-black dark:text-white mb-3">{title}</Text>
-        <Text className="text-sm text-darkgray dark:text-whitegray font-cairoMedium">{description}</Text>
+        <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3">{title}</Text>
+        <Text className="text-sm  text-darkgray dark:text-whitegray font-cairoMedium">{description}</Text>
       </View>
       <StatusBar barStyle='light'/>
     </View>
