@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
 import SignInWithOAuth from "../../components/SignInWithOAuth";
 import { ThemeContext } from "../../common/ThemeProvider";
+import PwReset from "./reset";
 export default function LoginPage() {
   const {colorScheme} = useContext(ThemeContext);
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -46,7 +47,7 @@ export default function LoginPage() {
       </View>
       <View className="px-4 pt-10 flex-1 items-center">
         {/* Email */}
-        <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+        <View className=" flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
           <Icon name="person-outline" size={25} color={'darkgray'}/>
           <TextInput
             className="ml-2 w-full"
@@ -55,6 +56,7 @@ export default function LoginPage() {
             placeholder="metalux@gmail.com"
             onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
           />
+          
         </View>
         {/* Password */}
         <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-lg">
@@ -68,13 +70,15 @@ export default function LoginPage() {
           />
         </View>
         {/* Reset Password */}
-        <View  className='flex-row-reverse items-center justify-between py-3 w-full mb-4'>
+        <View  className='flex-row items-center justify-between py-3 w-full mb-4'>
           <TouchableOpacity 
+          onPress={()=>router.push('(modals)/reset')}
             className=''>
             <Text 
               className='text-darkgray dark:text-whitegray text-right font-cairoLight'
               style={{textDecorationLine : 'underline'}}>هل نسيت كلمة السر ؟</Text>
           </TouchableOpacity>
+          
           {/* Create New Account */}
           <TouchableOpacity 
             className=" "
@@ -85,7 +89,7 @@ export default function LoginPage() {
         </View>
         {/* Button Log In */}
         <TouchableOpacity 
-          className="bg-secondary flex-row-reverse p-3 rounded-lg shadow mb-8"
+          className="bg-secondary flex-row p-3 rounded-lg shadow mb-8"
           onPress={onSignInPress}>
           <Text className=" ml-1 text-white text-center  font-cairoMedium">تسجيل الدخول</Text>
           <Icon name="arrow-back-outline" size={25} color={'#fff'}/>

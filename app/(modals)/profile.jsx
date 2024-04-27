@@ -58,14 +58,24 @@ const Profile = () => {
   return (
   <View className="flex-1 bg-slate-200 dark:bg-black">
       {/* Header Style */}
-      <View className='flex pt-20 h-[250] justify-center '>
+      <View className='absolute top-12 left-0 px-4 flex-row items-center h-[40] justify-between w-full'>
         {/* Close Button */}
         <TouchableOpacity
           onPress={()=>router.back()}
-          className="absolute top-10 left-5 z-20  p-2 rounded-full bg-seashell"
+          className="border border-[#333] dark:border-[#585757] p-2 rounded-xl"
         >
-          <Icon name={'arrow-back-outline'} size={20} color={'#000'} />
+          <Icon name={'arrow-back-outline'} size={20} color={colorScheme=='dark' ?'white':'black'} />
         </TouchableOpacity>
+        {/* Edit Button */}
+        <TouchableOpacity
+          onPress={()=>setEdit(true)}
+          className=""
+        >
+          <Icon className='' name={'create-outline'} size={25} color={colorScheme=="dark"? "#fff": "black"} />
+        </TouchableOpacity>
+      </View>
+      <View className='flex pt-20 h-[250] w-full justify-center '>
+        
         {/* Photo User And Name*/}
         <View className='gap-y-1 flex-col items-center justify-center  w-full  '>
           <View className='relative'>
@@ -104,21 +114,14 @@ const Profile = () => {
         {/* User Name */}
         <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2"> اليوزر نيم : </Text>
-          <Text className='font-cairoMedium  dark:text-whitegray'>{username}</Text>
+          <Text className='font-cairoMedium  dark:text-whitegray'>{username?username:'ليس لديك اسم مستخدم'}</Text>
         </View>
         {/* Email */}
         <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2">الايميل : </Text>
           <Text className='dark:text-whitegray'>{email}</Text>
         </View>
-        {/* Update Informations */}
-        <TouchableOpacity
-          className="flex-row justify-center items-center mt-10 bg-[#148DFF] shadow p-3 rounded-sm"
-          onPress={()=>setEdit(true)}
-        >
-          <Icon className='' name={'create-outline'} size={25} color={'#fff'} />
-          <Text className="ml-2 text-white text-center font-cairoRegular">تحديث معلوماتك</Text>
-        </TouchableOpacity>
+        
       </View>):(
         <View className=' flex-1 justify-start  px-2'>
         <Text className="text-black text-xl font-cairoBold dark:text-whitegray">تحديث المعلومات</Text>
@@ -147,6 +150,7 @@ const Profile = () => {
           <Text className="font-cairoRegular text-darkgray ml-2"> اليوزر نيم : </Text>
           <TextInput 
             value={username || ''} 
+            placeholder={username?username:' اضف اسم مستخدم'}
             onChangeText={setUserName} 
             className=' font-cairoMedium rounded text-darkgray border-darkgray border w-[180] px-2'
           />

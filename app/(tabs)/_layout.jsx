@@ -50,14 +50,6 @@ export default function RootLayoutNav() {
             name='settings'
             options={{
               headerShown:false,
-              headerLeft:()=>(
-                <TouchableOpacity
-                onPress={()=>router.back()}
-                style={{marginRight:30,marginLeft:10}}
-                >
-                  <Icon name='arrow-back-outline' size={25} color={'#808080'} />
-                </TouchableOpacity>
-              ),
               tabBarIcon:({focused})=>
               <Icon name={focused ? 'settings' : 'settings-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
           }}/>
