@@ -1,6 +1,6 @@
 module.exports = {
     name: 'IraqPad',
-    scheme: "IraqPad",
+    scheme: "iraqpadproject",
     version: '1.0.0',
     extra: {
       "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
@@ -11,5 +11,6 @@ module.exports = {
     },
     "android": {
       "package": "com.metalux.iraqpad",
-    }
+    },
+
 };

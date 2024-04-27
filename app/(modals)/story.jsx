@@ -4,14 +4,19 @@ import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
-import { partstory } from '../../common/data';
 import { useAuth } from '@clerk/clerk-expo';
 import { Alert } from 'react-native';
 import axios from 'axios';
 export default function index() {
   const {isSignedIn} = useAuth()
   const [addFavorite,setAddFavorite]= useState(false);
-  const {title,picture,description,rate,id} = useLocalSearchParams();
+  const {title,picture,description,rate,id,created_at} = useLocalSearchParams();
+  // Get The Date Of Punlish This Story
+  const dateObject = new Date(created_at);
+  const year = dateObject.getFullYear();
+  const month = dateObject.getMonth() + 1;
+  const day = dateObject.getDate();
+  const formattedDate = `${year}-${month}-${day}`;
   const[part ,setPart]= useState([]);
   // Get part Of Story From Api
   useEffect(() =>{
@@ -34,11 +39,11 @@ export default function index() {
           colors={['transparent', 'rgba(0,0,0,0.9)']}
         />
         <View className="absolute bottom-4 right-3 flex-row-reverse justify-between px-4 w-full">
-          <Text 
+          {/* <Text 
             className=" text-white py-4 text-right text-2xl font-cairoBold "
           >
             {title}
-          </Text>
+          </Text> */}
           {/* <View className='flex-row items-center '>
             <Text className='text-white text-lg mr-2'>{rate}</Text>
             <Icon 
@@ -102,6 +107,10 @@ export default function index() {
       {/* Content */}
       <View className="px-4 py-5  dark:bg-black mx-2 ">
         <Text className="text-2xl font-cairoRegular text-black text-right dark:text-white mb-2">{title}</Text>
+        {/* Info Of Story */}
+        <View className='my-2 '>
+          <Text className='text-sm font-cairoLight text-darkgray text-right dark:text-whitegray'>تم النشر بتاريخ: {formattedDate}</Text>
+        </View>
         <Text className="text-sm text-darkgray text-right dark:text-whitegray font-cairoMedium">{description}</Text>
       </View>
       <StatusBar barStyle='light'/>
@@ -109,7 +118,6 @@ export default function index() {
   )
 }
 const partStory = ({item})=>{
-  // console.log("id part"+item.storyId)
   return(
     <View className="ml-2 ">
       
@@ -117,7 +125,7 @@ const partStory = ({item})=>{
         onPress={()=>router.push({
           pathname: '/partstory',
           params: item
-      })}
+        })}
       >
         <Image
           style={{ height: 80, width: 150, borderRadius: 10 }}

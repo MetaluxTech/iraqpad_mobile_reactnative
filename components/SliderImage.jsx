@@ -1,8 +1,6 @@
 import { View, Dimensions, Text, Image, StatusBar } from 'react-native'
-import React from 'react'
 import Carousel , { ParallaxImage }  from 'react-native-snap-carousel';
 import { LinearGradient } from 'expo-linear-gradient';
-
 const { height, width } = Dimensions.get('window')
 export default function SliderImage({sliderIamge}) {
   return (
@@ -14,7 +12,8 @@ export default function SliderImage({sliderIamge}) {
           autoplayInterval={4000}
           hasParallaxImages={true} //
           renderItem={ItemCard}
-          firstItem={1}
+          firstItem={0}
+          inverted={true}
           itemWidth={width}
           sliderWidth={width}
           slideStyle={{display: 'flex', alignItems: 'center'}}
@@ -29,7 +28,7 @@ const ItemCard= ({item , index},parallaxProps)=>{
           source={{uri : item.picture}}
           containerStyle={{flex:1}}
           style={{resizeMode:'contain', width:'100%', height:'100%'}}
-          parallaxFactor={1}
+          parallaxFactor={0.4}
           {...parallaxProps}
         />
         <LinearGradient

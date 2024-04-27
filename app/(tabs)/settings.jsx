@@ -7,7 +7,7 @@ import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 export default function Page() {
   const { colorScheme,toggleTheme} = useContext(ThemeContext)
-  const { user } = useUser();
+
   const {signOut ,isSignedIn} = useAuth();
   return (
     <View  className=" flex-1  pt-10  bg-slate-200 dark:bg-black">

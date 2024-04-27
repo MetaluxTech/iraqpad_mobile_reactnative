@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "IraqPad",
+    "scheme": "iraqpadproject",
     "extra": {
       "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
       "clerkSecretKey": "​sk_test_zfrtbX5riGWMKc8PgK06dIBAl21iHQpaH1dTsnZLA0",

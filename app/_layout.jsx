@@ -75,7 +75,7 @@ function RootLayoutNav() {
   const { isLoaded,isSignedIn } = useAuth();
   useEffect(()=>{
     if (!isLoaded) return;
-    if (isSignedIn ) {
+    if (isSignedIn) {
 			router.replace('/');
 		} else if (!isSignedIn) {
 			router.replace('/(modals)/login');
@@ -89,6 +89,8 @@ function RootLayoutNav() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="(modals)/story" />
       <Stack.Screen name="(modals)/profile" />
+      <Stack.Screen name="(modals)/storyByCategory" />
+      <Stack.Screen name="(modals)/storyBySubCategory" />
       <Stack.Screen name="(modals)/partstory" />
       <Stack.Screen name="(modals)/search" options={{
         presentation:'modal',

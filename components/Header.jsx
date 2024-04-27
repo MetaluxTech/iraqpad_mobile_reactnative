@@ -1,9 +1,20 @@
-import { View, Text, StatusBar, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { View, Text, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native'
+import React, { useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Link, router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
+import axios from 'axios';
 export default function Header() {
+
+    // const dataSearhed = (text)=>{
+    //   // const url =`https://iraqpad-web.vercel.app/api/story?q=${text}`
+    //     axios.get(`https://iraqpad-web.vercel.app/api/story?q=${text}`).then((response) => {
+    //     let allData = response.data.allStories;
+    //     if(allData){
+    //       setSearchData(allData)
+    //     }
+    //     });
+    // }
   return (
     <View className=" relative ">
       <Image 
@@ -21,12 +32,16 @@ export default function Header() {
         />
         <View className='flex-row'>
           {/* Search Btn */}
-          <TouchableOpacity 
+          {/* <TextInput 
+            className='w-full border border-white p-2 text-white'
+            placeholder='search data' 
+            onChangeText={(text)=>dataSearhed(text)}/> */}
+          {/* <TouchableOpacity 
             onPress={()=>router.push('search')}
             className="border border-white p-2 rounded-full mr-2"
           >
             <Icon name='search' size={20} color={'white'}/>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           {/* Notifications Btn */}
           {/* <TouchableOpacity 
             onPress={()=>router.push('notifications')}

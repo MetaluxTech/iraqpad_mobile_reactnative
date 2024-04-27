@@ -58,13 +58,13 @@ const Profile = () => {
   return (
   <View className="flex-1 bg-slate-200 dark:bg-black">
       {/* Header Style */}
-      <View className='absolute top-12 left-0 px-4 flex-row justify-between w-full'>
+      <View className='absolute top-12 left-0 px-4 flex-row items-center h-[40] justify-between w-full'>
         {/* Close Button */}
         <TouchableOpacity
           onPress={()=>router.back()}
-          className=""
+          className="border border-[#333] dark:border-[#585757] p-2 rounded-xl"
         >
-          <Icon name={'arrow-back-outline'} size={25} color={colorScheme=="dark"? "#fff": "black"} />
+          <Icon name={'arrow-back-outline'} size={20} color={colorScheme=='dark' ?'white':'black'} />
         </TouchableOpacity>
         {/* Edit Button */}
         <TouchableOpacity
