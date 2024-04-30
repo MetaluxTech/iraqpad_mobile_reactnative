@@ -1,15 +1,16 @@
-import { View, StyleSheet, TextInput, Button } from 'react-native';
-import React, { useState } from 'react';
-import { Stack } from 'expo-router';
+import { View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Stack, router } from 'expo-router';
 import { useSignIn } from '@clerk/clerk-expo';
-
+import Icon from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../../common/ThemeProvider';
 const PwReset = () => {
 	const [emailAddress, setEmailAddress] = useState('');
 	const [password, setPassword] = useState('');
 	const [code, setCode] = useState('');
 	const [successfulCreation, setSuccessfulCreation] = useState(false);
 	const { signIn, setActive } = useSignIn();
-
+	const { colorScheme } = useContext(ThemeContext)
 	// Request a passowrd reset code by email
 	const onRequestReset = async () => {
 		try {
@@ -42,7 +43,14 @@ const PwReset = () => {
 	};
 
 	return (
-		<View style={styles.container}>
+		<View className='bg-slate-100 dark:bg-black' style={styles.container}>
+			{/* Close Button */}
+			<TouchableOpacity
+				onPress={() => router.back()}
+				className="absolute top-10 left-5 z-10  p-3 rounded-full"
+			>
+				<Icon name={'arrow-back-outline'} size={30} color={colorScheme == 'dark' ? 'white' : 'black'} />
+			</TouchableOpacity>
 			<Stack.Screen options={{ headerBackVisible: !successfulCreation }} />
 
 			{!successfulCreation && (
@@ -55,7 +63,7 @@ const PwReset = () => {
 						style={styles.inputField}
 					/>
 
-					<Button onPress={onRequestReset} title="Send Reset Email" color={'#6c47ff'}></Button>
+					<Button onPress={onRequestReset} title="طلب اعادة تغيير الرمز" color={'#6c47ff'}></Button>
 				</>
 			)}
 
@@ -69,14 +77,14 @@ const PwReset = () => {
 							onChangeText={setCode}
 						/>
 						<TextInput
-							placeholder="New password"
+							placeholder="الباسورد الجديد"
 							value={password}
 							onChangeText={setPassword}
 							secureTextEntry
 							style={styles.inputField}
 						/>
 					</View>
-					<Button onPress={onReset} title="Set new Password" color={'#6c47ff'}></Button>
+					<Button onPress={onReset} title="ادخل رمز جديد" color={'#6c47ff'}></Button>
 				</>
 			)}
 		</View>

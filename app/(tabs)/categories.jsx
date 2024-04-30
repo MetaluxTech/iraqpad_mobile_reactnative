@@ -1,58 +1,119 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Dimensions } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import axios from 'axios';
-
+import CardByCategory from '../../components/CardByCategory';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { ThemeContext } from '../../common/ThemeProvider';
+import { SelectList } from 'react-native-dropdown-select-list'
+import CardAllStory from '../../components/CardAllStory';
+const { height, width } = Dimensions.get('window')
 export default function Page() {
-  // const [story , setStory] = useState([])
-  // const {title,id} = useLocalSearchParams();
-  // console.log(id)
-  // console.log(story)
-  // useEffect(() =>{
-  //   axios.get(`https://iraqpad-web.vercel.app/api/story?categoryId=${id}`).then((response) => {
-  //   const storyByCategory = response.data.allStories.filter(item => item.categoryId === id);
-  //   setStory(storyByCategory);
-  // });
-  // },[])
+  const [selectedCategory, setSelectedCategory] = React.useState('');
+  const [selectedSubCategory, setSelectedSubCategory] = React.useState("");
+  const [story, setStory] = useState([])
+  const [category, setCategory] = useState([])
+  const [idCategory, setIdCategory] = useState([])
+  const [subCategory, setSubCategory] = useState([])
+  // const [subCategorySelected, setSubCategorySelected] = useState([])
+  const { colorScheme } = useContext(ThemeContext)
+  useEffect(() => {
+    allStory()
+    axios.get(`https://iraqpad-web.vercel.app/api/subCategory`).then((response) => {
+      setSubCategory(response.data);
+    });
+    axios.get(`https://iraqpad-web.vercel.app/api/category`).then((response) => {
+      setCategory(response.data);
+    });
+  }, [])
+  // Display All Stories 
+  const allStory = () => {
+    axios.get(`https://iraqpad-web.vercel.app/api/story`).then((response) => {
+      setStory(response.data.allStories);
+    });
+  }
+  // Display Stories By Category When Clecked On Category Button
+  const showStoryByCategory = (selectedTitle) => {
+    const selectedCategory = category.find(cat => cat.title === selectedTitle);
+    if (selectedCategory) {
+      axios.get(`https://iraqpad-web.vercel.app/api/story?category=${selectedTitle}`).then((response) => {
+        const allData = response.data.allStories.filter(item => item.category.title === selectedTitle);
+        setStory(allData);
+      });
+      setIdCategory(selectedCategory.id);
+    }
+  }
+  // Display Stories By SubCategory When Clecked On SubCategory Button
+  const showStoryBySubCategory = (text) => {
+    console.log(text);
+    axios.get(`https://iraqpad-web.vercel.app/api/story?subcategory=${text}`).then((response) => {
+      const allData = response.data.allStories.filter(item => item.subcategory.title === text);
+      setStory(allData);
+    });
+  }
+  const subCategorySelected = subCategory.filter(item => item.categoryId === idCategory);
+  const subCategoryData = subCategorySelected.map(item => item.title);
+  const categoryData = category.map(item => item.title);
+
   return (
-    <View className='flex-1 items-center justify-center bg-slate-200 dark:bg-black'>
-      {/* <Text className='text-black'>title category : {title}</Text> */}
-      {/* <FlatList
-          data={story}
-          inverted={true}
-          horizontal
-          keyExtractor={item => item.id}
-          showsHorizontalScrollIndicators={false}
-          renderItem={partStory}
-          firstItem={1}
-        /> */}
+    <View className='flex-1  pt-10  bg-slate-200 dark:bg-black'>
+      <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50]'>
+        {/* Title Of Category */}
+        <Text className='text-xl text-black font-cairoBold dark:text-white'>كل القصص</Text>
+        {/* Back */}
+        <TouchableOpacity
+          className="border border-[#333] dark:border-[#585757] p-2 rounded-xl"
+          onPress={() => router.back()}
+        >
+          <Icon
+            name='arrow-back-outline'
+            size={20}
+            color={colorScheme == 'dark' ? 'white' : 'black'}
+          />
+        </TouchableOpacity>
+      </View>
+      <View className="flex-row-reverse justify-start w-full px-2 mb-5">
+        <TouchableOpacity
+          className='ml-2 h-[45px] border-black dark:border-white border px-4 py-2 rounded-lg'
+          onPress={allStory}
+        >
+          <Text
+            className="font-cairoMedium text-black dark:text-white "
+          >
+            الكل
+          </Text>
+        </TouchableOpacity>
+        {/* Choose Category */}
+        <SelectList
+          inputStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' }}
+          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' ,textAlign:'right'}}
+          boxStyles={{ flexDirection: 'row-reverse',width: width*0.32, borderColor: colorScheme == 'dark' ? 'white' : 'black', marginRight: 10 }}
+          placeholder='اختر فئة'
+          search={false}
+          arrowicon={<Icon name='chevron-down-outline' size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />}
+          setSelected={(val) => setSelectedCategory(val)}
+          data={categoryData}
+          onSelect={() => showStoryByCategory(selectedCategory)}
+          save="value"
+        />
+        {/* Choose SubCategory */}
+        {subCategoryData.length > 0 &&<SelectList
+          inputStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' }}
+          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black',textAlign:'right' }}
+          boxStyles={{ flexDirection: 'row-reverse', width: width*0.40, borderColor: colorScheme == 'dark' ? 'white' : 'black' }}
+          placeholder='اختر تصنيف'
+          search={false}
+          arrowicon={<Icon name='chevron-down-outline' size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />}
+          setSelected={(value) => setSelectedSubCategory(value)}
+          data={subCategoryData}
+          onSelect={() => showStoryBySubCategory(selectedSubCategory)}
+          save="value"
+        />}
+      </View>
+      <View className="flex-1 px-2 pb-5">
+        <CardAllStory story={story} />
+      </View>
     </View>
   )
 }
 
-const partStory = ({item})=>{
-  return(
-    <View className="ml-2 flex-1 justify-center">
-      
-      <TouchableOpacity
-        // onPress={()=>router.push({
-        //   pathname: '/partstory',
-        //   params: item
-        // })}
-      >
-        <Image
-          style={{ height: 80, width: 150, borderRadius: 10 }}
-          source={{uri:item.picture}}
-          resizeMode='cover'
-        />
-        {/* <LinearGradient 
-        className="absolute bottom-0 w-full h-full rounded-lg"
-        colors={['transparent', 'rgba(0,0,0,.9)']}
-      /> */}
-        <Text className='absolute z-10 bottom-2 right-2 text-white font-cairoRegular'>{item.title}</Text>
-      </TouchableOpacity>
-      
-    </View>
-  )
-  
-}

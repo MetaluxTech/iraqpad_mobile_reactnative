@@ -23,7 +23,7 @@ const SignInWithOAuth = () => {
 
       if (createdSessionId) {
         setActive({ session: createdSessionId });
-        router.push('/');
+        router.back();
       }
     } catch (err) {
       console.error('OAuth error', err);

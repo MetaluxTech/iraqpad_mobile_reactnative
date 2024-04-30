@@ -71,87 +71,48 @@ export default function home() {
   return (
     <View className="flex-1 bg-slate-100 dark:bg-black dir">
       <Header />
-      <View className='w-["100%"] m-4 relative '>
-        <View className='absolute flex-row items-center left-3 top-0 z-10 h-full'>
+      <View className=' flex-row w-["100%"]  my-8 mx-4 '>
+
+        <View className='flex-1 relative'>
           <Icon
+            className=" absolute top-4 left-2 z-10 "
             name={text.length <= 0 ? 'search' : 'close-outline'}
             size={25}
             color={colorScheme == "dark" ? "white" : "darkgray"}
             onPress={() => setText('')}
           />
+          <TextInput
+            className='  border-darkgray text-black dark:text-white text-right rounded-lg border px-2 py-4 '
+            onChangeText={(text) => dataSearched(text)}
+            placeholder='البحث عن قصص'
+            placeholderTextColor={colorScheme == "dark" ? "white" : "darkgray"}
+            value={text}
+          />
         </View>
-        <TextInput
-          className=' border-darkgray text-black dark:text-white text-right rounded-lg border p-2 w-["100%"]'
-          onChangeText={(text) => dataSearched(text)}
-          placeholder='البحث عن قصص'
-          placeholderTextColor={colorScheme == "dark" ? "white" : "darkgray"}
-          value={text}
-        />
+        <TouchableOpacity
+          onPress={()=>router.push('categoriesModals')}
+          className=' border-darkgray border rounded-lg p-4 mx-2 flex-row justify-center items-center'>
+          <Icon
+            name={'options-outline'}
+            size={20}
+            color={colorScheme == "dark" ? "white" : "darkgray"}
+
+          />
+        </TouchableOpacity>
       </View>
       {text.length <= 0 ? (
         <ScrollView>
           {/* Slider Section */}
           <SliderImage sliderIamge={sliderIamge} />
-          {/* Categories Section */}
-          <View className="my-4 mx-2 py-5 bg-white dark:bg-blackdark shadow rounded-lg">
-            {/* Main Categories */}
-            <View className=" px-10 mb-5">
-              <FlatList
-                horizontal
-                inverted={true}
-                showsHorizontalScrollIndicator={false}
-                data={categories}
-                keyExtractor={(item) => (item.id)}
-                renderItem={({ item }) => {
-                  return (
-                    <TouchableOpacity
-                      onPress={() => router.push({
-                        pathname: '/storyByCategory',
-                        params: item
-                      })}
-                    >
-                      <Text
-                        className="font-cairoMedium border-secondary border  text-secondary  px-6 py-3 rounded-md mx-2">
-                        {item.title}
-                      </Text>
-                    </TouchableOpacity>
-                  )
-                }}
-              />
-            </View>
-            {/* Sub Categories */}
-            <FlatList
-              horizontal
-              inverted={true}
-              showsHorizontalScrollIndicator={false}
-              data={subcategory}
-              keyExtractor={(item) => (item.id)}
-              renderItem={({ item }) => {
-                return (
-                  <TouchableOpacity
-                    onPress={() => router.push({
-                      pathname: '/storyBySubCategory',
-                      params: item
-                    })}
-                  >
-                    <Text
-                      className="font-cairoRegular bg-secondary text-white  px-4 py-2 rounded-md mr-2">
-                      {item.title}
-                    </Text>
-                  </TouchableOpacity>
-                )
-              }}
-            />
-          </View>
           {/* New Stories */}
           <View className=" px-2 my-4 mx-1">
-            <Text className="text-xl py-3 font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>
+            <Text className="text-xl text-right py-3 font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>
             {/* New Stories slider */}
             <Card stories={stories} />
           </View>
           {/* Best Stories */}
           <View className=" px-2 my-4 mx-1">
-            <Text className=" text-xl font-cairoBold dark:text-whitegray">أفضل القصص</Text>
+            <Text className=" text-xl text-right font-cairoBold dark:text-whitegray">أفضل القصص</Text>
             {/* Best Stories slider */}
             <Card stories={sliderIamge} />
           </View>
@@ -165,7 +126,7 @@ export default function home() {
         </ScrollView>
       ) : (
         <View className='px-2 pb-5 flex-1'>
-          <Text className='text-xl text-black dark:text-white font-cairoRegular px-2 pb-2'>نتيجة البحث : </Text>
+          <Text className='text-xl text-black text-right dark:text-white  font-cairoRegular px-2 pb-2'>نتيجة البحث : </Text>
           <CardByCategory story={searchData} />
         </View>
       )

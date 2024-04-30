@@ -58,11 +58,11 @@ const Profile = () => {
   return (
   <View className="flex-1 bg-slate-200 dark:bg-black">
       {/* Header Style */}
-      <View className='absolute top-12 left-0 px-4 flex-row items-center h-[40] justify-between w-full'>
+      <View className='absolute top-12 left-0 px-4 flex-row z-20 items-center h-[40] justify-between w-full'>
         {/* Close Button */}
         <TouchableOpacity
           onPress={()=>router.back()}
-          className="border border-[#333] dark:border-[#585757] p-2 rounded-xl"
+          className="border border-[#333] dark:border-[#585757]  p-2 rounded-xl"
         >
           <Icon name={'arrow-back-outline'} size={20} color={colorScheme=='dark' ?'white':'black'} />
         </TouchableOpacity>
@@ -99,12 +99,12 @@ const Profile = () => {
       {/* User Informations */}
       {!edit ? (
       <View className=' flex-1 justify-start  px-2'>
-        <Text className="text-black text-xl font-cairoBold dark:text-whitegray">المعلومات</Text>
+        <Text className="text-black text-xl font-cairoBold text-right dark:text-whitegray">المعلومات</Text>
         {/* First Name */}
         <View 
           className='overflow-hidden flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray  ml-2">الاسم الاول : </Text>
-          <Text className='font-cairoMedium  dark:text-whitegray'>{firstName}</Text>
+          <Text className='font-cairoMedium text-right dark:text-whitegray'>{firstName}</Text>
         </View>
         {/* Last Name */}
         <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
@@ -124,7 +124,7 @@ const Profile = () => {
         
       </View>):(
         <View className=' flex-1 justify-start  px-2'>
-        <Text className="text-black text-xl font-cairoBold dark:text-whitegray">تحديث المعلومات</Text>
+        <Text className="text-black text-xl font-cairoBold text-right dark:text-whitegray">تحديث المعلومات</Text>
         {/* First Name */}
         <View 
           
@@ -133,32 +133,32 @@ const Profile = () => {
           <TextInput 
             value={firstName || ''} 
             onChangeText={setFirstName} 
-            className=' font-cairoMedium rounded text-darkgray border-darkgray border w-[180] px-2'
+            className=' font-cairoMedium text-right rounded text-darkgray border-darkgray border w-[180] px-2'
           />
         </View>
         {/* Last Name */}
         <View  className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
-          <Text className="font-cairoRegular text-darkgray ml-2">الاسم الاخير : </Text>
+          <Text className="font-cairoRegular text-right text-darkgray ml-2">الاسم الاخير : </Text>
           <TextInput 
             value={lastName || ''} 
             onChangeText={setLastName} 
-            className=' font-cairoMedium rounded text-darkgray border-darkgray border w-[180] px-2'
+            className=' font-cairoMedium text-right rounded text-darkgray border-darkgray border w-[180] px-2'
           />
         </View>
         {/* User Name */}
-        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow-md p-3 rounded-lg mt-4'>
+        <View style={styles.shadow} className='flex-row-reverse items-center bg-whitegray dark:bg-blackdark shadow p-3 rounded-lg mt-4'>
           <Text className="font-cairoRegular text-darkgray ml-2"> اليوزر نيم : </Text>
           <TextInput 
             value={username || ''} 
             placeholder={username?username:' اضف اسم مستخدم'}
             onChangeText={setUserName} 
-            className=' font-cairoMedium rounded text-darkgray border-darkgray border w-[180] px-2'
+            className=' font-cairoMedium text-right rounded text-darkgray border-darkgray border w-[180] px-2'
           />
         </View>
 
         {/* Update Informations */}
         <TouchableOpacity
-          className="mt-10 bg-green-600 shadow py-2 rounded-sm flex-row justify-center items-center"
+          className="mt-10 bg-green-600 shadow py-2 rounded-sm flex-row shadow justify-center items-center"
           onPress={onSaveUser}
         >
           <Icon className='' name={'checkmark-outline'} size={30} color={'#fff'} />
