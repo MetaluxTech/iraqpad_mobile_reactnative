@@ -7,7 +7,7 @@ export default function Page() {
     <View className="flex-1 items-center justify-center bg-slate-200 dark:bg-black">
       <SignedIn>
         <View>
-          <Text className='dark:text-white'>المفضلة</Text>
+          <Text className='dark:text-white font-cairoRegular'>سوف يتم عرض هذه الصفحة في التحديث القادم</Text>
         </View>
       </SignedIn>
       <SignedOut>

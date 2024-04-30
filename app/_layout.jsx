@@ -57,59 +57,66 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-  
-  return(
+
+  return (
     <ThemeProvider >
-      <ClerkProvider  
-        secretKey={Constants.expoConfig.extra.clerkSecretKey} 
-        publishableKey={Constants.expoConfig.extra.clerkPublishableKey} 
+      <ClerkProvider
+        secretKey={Constants.expoConfig.extra.clerkSecretKey}
+        publishableKey={Constants.expoConfig.extra.clerkPublishableKey}
         tokenCache={tokenCache}
       >
         <RootLayoutNav />
       </ClerkProvider>
     </ThemeProvider>
-  ) ;
+  );
 }
 
 function RootLayoutNav() {
-  const { isLoaded,isSignedIn } = useAuth();
-  useEffect(()=>{
+  const { isLoaded, isSignedIn } = useAuth();
+  useEffect(() => {
     if (!isLoaded) return;
     if (isSignedIn) {
-			router.replace('/');
-		} else if (!isSignedIn) {
-			router.replace('/(modals)/login');
-		}
-  },[isSignedIn])
+      router.replace('/');
+    } else if (!isSignedIn) {
+      router.replace('/(modals)/login');
+    }
+  }, [isSignedIn])
   return (
     <Stack screenOptions={{
-      headerShown:false,
-      
-      }}>
+      headerShown: false,
+
+    }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="(modals)/story" />
       <Stack.Screen name="(modals)/profile" />
-      <Stack.Screen name="(modals)/storyByCategory" />
-      <Stack.Screen name="(modals)/storyBySubCategory" />
-      <Stack.Screen name="(modals)/partstory" />
-      <Stack.Screen name="(modals)/search" options={{
-        presentation:'modal',
-      }}/>
-      <Stack.Screen name="(modals)/notifications" options={{
-        presentation:'modal',
-        }}/>
+      <Stack.Screen name="(modals)/storyByCategory"
+        options={{
+          presentation: 'modal',
+        }} />
+      <Stack.Screen name="(modals)/partstory" options={{
+        presentation: 'modal',
+      }} />
+      <Stack.Screen name="(modals)/categoriesModals" options={{
+        presentation: 'modal',
+      }} />
+      {/* <Stack.Screen name="(modals)/notifications" options={{
+        presentation: 'modal',
+      }} /> */}
       <Stack.Screen name="(modals)/login" options={{
-        presentation:'modal',
-        headerShadowVisible:false,
-      }}/>
+        presentation: 'modal',
+        headerShadowVisible: false,
+      }} />
       <Stack.Screen name="(modals)/signup" options={{
-        presentation:'modal',
-        headerShadowVisible:false,}}
+        presentation: 'modal',
+        headerShadowVisible: false,
+      }}
       />
       <Stack.Screen name="(modals)/reset" options={{
-        presentation:'modal',
-        headerShadowVisible:false,}}
+        presentation: 'modal',
+        headerShadowVisible: false,
+      }}
       />
     </Stack>
-  )}
+  )
+}
 

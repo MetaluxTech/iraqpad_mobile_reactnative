@@ -30,11 +30,11 @@ export default function LoginPage() {
   };
   return (
     <View className="bg-slate-100  flex-1 relative dark:bg-black">
-      <StatusBar barStyle='auto'/>
+      <StatusBar style='light'/>
       {/* Close Button */}
       <TouchableOpacity
           onPress={()=>router.navigate('/')}
-          className="absolute top-10 left-5  "
+          className="absolute top-10 left-5  z-20"
       >
         <Icon name={'arrow-back-outline'} size={30} color={colorScheme=="dark"? "white": "black"} />
       </TouchableOpacity>

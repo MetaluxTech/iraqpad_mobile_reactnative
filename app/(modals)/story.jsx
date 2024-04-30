@@ -1,5 +1,5 @@
 import { View, Text, Image, StatusBar, FlatList } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native';
 import { useAuth } from '@clerk/clerk-expo';
 import { Alert } from 'react-native';
 import axios from 'axios';
+import { ThemeContext } from '../../common/ThemeProvider';
 export default function index() {
   const {isSignedIn} = useAuth()
   const [addFavorite,setAddFavorite]= useState(false);
@@ -18,6 +19,7 @@ export default function index() {
   const day = dateObject.getDate();
   const formattedDate = `${year}-${month}-${day}`;
   const[part ,setPart]= useState([]);
+  const { colorScheme } = useContext(ThemeContext)
   // Get part Of Story From Api
   useEffect(() =>{
     axios.get(`https://iraqpad-web.vercel.app/api/part?storyId=${id}`).then((response) => {
@@ -54,22 +56,21 @@ export default function index() {
             />
           </View> */}
         </View>
-        <View className="absolute top-12 left-0 px-4 flex-row justify-between w-full">
+        <View className="absolute top-12 left-0 z-50 px-4 flex-row justify-between w-full">
           {/* Back */}
           <TouchableOpacity
-            className=""
+            className="bg-white p-3 rounded-full"
             onPress={()=>router.back()}
           >
             <Icon 
-              className=" bg-white p-3 rounded-full" 
+              className=" " 
               name='arrow-back-outline' 
               size={20} 
               color={'red'}
             />
           </TouchableOpacity>
           {/* favorite */}
-          
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={()=>(
               isSignedIn 
               ? setAddFavorite(!addFavorite) 
@@ -85,14 +86,12 @@ export default function index() {
               size={20} 
               color={'red'}
             />
-          </TouchableOpacity>
-          
-          
+          </TouchableOpacity> */}
         </View>
       </View>
       {/* Parts */}
       {part.length>0&&<View className="py-3 px-3 ">
-        <Text className="text-2xl font-cairoBold text-black dark:text-white mb-3 mt-5">الفصول</Text>
+        <Text className="text-2xl text-right font-cairoBold text-black dark:text-white mb-3 mt-5">الفصول</Text>
         <FlatList
           data={part}
           inverted={true}
@@ -113,7 +112,7 @@ export default function index() {
         </View>
         <Text className="text-sm text-darkgray text-right dark:text-whitegray font-cairoMedium">{description}</Text>
       </View>
-      <StatusBar barStyle='light'/>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
     </View>
   )
 }

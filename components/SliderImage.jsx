@@ -7,32 +7,32 @@ export default function SliderImage({sliderIamge}) {
     <View className=' mb-3 mr-4'>
         <Carousel
           data={sliderIamge}
-          loop={false}
+          loop={true}
           autoplay={true}
           autoplayInterval={4000}
           hasParallaxImages={true} //
           renderItem={ItemCard}
-          firstItem={0}
-          inverted={true}
-          itemWidth={width}
+          firstItem={-1}
+          inverted={false}
+          itemWidth={width-70}
           sliderWidth={width}
-          slideStyle={{display: 'flex', alignItems: 'center'}}
+          slideStyle={{display: 'flex', alignItems: 'center' }}
         />
     </View>
   )
 }
 const ItemCard= ({item , index},parallaxProps)=>{
   return(
-      <View className='w-full h-[250]' >
-        <ParallaxImage
+      <View className='w-full h-[250] rounded-lg' >
+        {item.picture &&<ParallaxImage
           source={{uri : item.picture}}
-          containerStyle={{flex:1}}
-          style={{resizeMode:'contain', width:'100%', height:'100%'}}
+          containerStyle={{flex:1,borderRadius:'20px'}}
+          style={{resizeMode:'cover', width:width, height:'100%',}}
           parallaxFactor={0.4}
           {...parallaxProps}
-        />
+        />}
         <LinearGradient
-          className="absolute bottom-0 w-full h-full"
+          className="absolute bottom-0 w-full h-full rounded-[10px]"
           colors={['transparent', 'rgba(0,0,0,.9)']}
         />
         <View className="absolute bottom-3 right-5">

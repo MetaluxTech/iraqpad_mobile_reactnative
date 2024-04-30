@@ -1,11 +1,12 @@
 import { View, Text, Image, StatusBar, FlatList, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
-export default function index({story}) {
-  console.log(story)
+import { ThemeContext } from '../../common/ThemeProvider';
+export default function index() {
+  const { colorScheme } = useContext(ThemeContext)
   const {title,picture,description} = useLocalSearchParams();
   return (
     <View className='flex-1 dark:bg-black' >
@@ -27,11 +28,11 @@ export default function index({story}) {
         </View> */}
         {/* Back Btn */}
         <TouchableOpacity
-        className="absolute top-12 left-5 flex-row-reverse"
+          className="absolute top-12 z-10 left-5 bg-white p-3 rounded-full "
           onPress={()=>router.back()}
         >
           <Icon 
-            className=" bg-white p-3 rounded-full" 
+            className=" " 
             name='arrow-back-outline' 
             size={20} 
             color={'red'}
@@ -39,13 +40,13 @@ export default function index({story}) {
         </TouchableOpacity>
       </View>
       {/* Content */}
-      <View className="px-4 py-5 mt-5  mx-2 ">
+      <View className="px-4 py-5 mt-5  mx-2 flex-1">
         <ScrollView >
-          <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3">{title}</Text>
-          <Text className="text-sm  text-darkgray dark:text-whitegray font-cairoMedium">{description}</Text>
+          <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3 text-right">{title}</Text>
+          <Text className="text-sm  text-darkgray dark:text-whitegray font-cairoMedium text-right">{description}</Text>
         </ScrollView>
       </View>
-      <StatusBar barStyle='light'/>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
     </View>
   )
 }
