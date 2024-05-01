@@ -35,6 +35,7 @@ export const unstable_settings = {
   initialRouteName: '(tabs)',
 };
 
+// Keep the splash screen visible while we fetch resources
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
@@ -43,6 +44,7 @@ export default function RootLayout() {
     regular: require('../assets/fonts/Cairo-Regular.ttf'),
     light: require('../assets/fonts/Cairo-Light.ttf')
   });
+  SplashScreen.preventAutoHideAsync();
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
@@ -50,7 +52,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+       SplashScreen.hideAsync();
     }
   }, [loaded]);
 

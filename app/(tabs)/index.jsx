@@ -10,6 +10,7 @@ import axios from 'axios'
 import { I18nManager } from "react-native";
 import Icon from 'react-native-vector-icons/Ionicons';
 import CardByCategory from '../../components/CardByCategory'
+import Animated, { FadeInRight, FadeInTop, FadeInBottom, SlideInRight, BounceIn, FadeOutLeft, SlideInLeft, FadeInLeft } from 'react-native-reanimated';
 const IS_RTL = I18nManager.isRTL;
 const { height, width } = Dimensions.get('window')
 export default function home() {
@@ -22,12 +23,6 @@ export default function home() {
   const [searchData, setSearchData] = useState([]);
   const [text, setText] = useState('');
   useEffect(() => {
-    fetchData();
-  }, [])
-  useEffect(() => {
-    sliders();
-  }, [stories])
-  const fetchData = () => {
     // Get Stories From Api
     axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {
       setStories(response.data.allStories);
@@ -42,8 +37,27 @@ export default function home() {
       SetSubcategory(response.data)
       setIsLoading(false)
     });
+  }, [])
+  useEffect(() => {
+    sliders();
+  }, [stories])
+  // const fetchData = () => {
+  //   // Get Stories From Api
+  //   axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {
+  //     setStories(response.data.allStories);
 
-  }
+  //   });
+  //   // Get Categories From Api
+  //   axios.get('https://iraqpad-web.vercel.app/api/category').then((response) => {
+  //     SetCategories(response.data)
+  //   });
+  //   // Get SubCategories From Api
+  //   axios.get('https://iraqpad-web.vercel.app/api/subCategory').then((response) => {
+  //     SetSubcategory(response.data)
+  //     setIsLoading(false)
+  //   });
+
+  // }
   // Get story that is slider From Api
   const sliders = () => {
     const sliders = stories.filter(story => story.slider === true)
@@ -71,9 +85,9 @@ export default function home() {
   return (
     <View className="flex-1 bg-slate-100 dark:bg-black dir">
       <Header />
-      <View className=' flex-row w-["100%"]  my-8 mx-4 '>
+      <View className=' flex-row items-center w-["100%"]  my-8 mx-4 '>
 
-        <View className='flex-1 relative'>
+        <Animated.View entering={FadeInLeft.delay(300).springify(300)} className='flex-1 relative'>
           <Icon
             className=" absolute top-4 left-2 z-10 "
             name={text.length <= 0 ? 'search' : 'close-outline'}
@@ -82,44 +96,47 @@ export default function home() {
             onPress={() => setText('')}
           />
           <TextInput
-            className='  border-darkgray text-black dark:text-white text-right rounded-lg border px-2 py-4 '
+            className='  border-darkgray text-black dark:text-white text-right rounded-xl border px-2 py-3 '
             onChangeText={(text) => dataSearched(text)}
             placeholder='البحث عن قصص'
             placeholderTextColor={colorScheme == "dark" ? "white" : "darkgray"}
             value={text}
           />
-        </View>
-        <TouchableOpacity
-          onPress={()=>router.push('categoriesModals')}
-          className=' border-darkgray border rounded-lg p-4 mx-2 flex-row justify-center items-center'>
-          <Icon
-            name={'options-outline'}
-            size={20}
-            color={colorScheme == "dark" ? "white" : "darkgray"}
+        </Animated.View>
+        <Animated.View entering={FadeInRight.delay(300).springify()}>
+          <TouchableOpacity
+            onPress={() => router.push('categoriesModals')}
+            className=' border-darkgray border rounded-full  h-[50] w-[50] ml-2 flex-row justify-center items-center'>
+            <Icon
+              name={'options-outline'}
+              size={20}
+              color={colorScheme == "dark" ? "white" : "darkgray"}
 
-          />
-        </TouchableOpacity>
+            />
+          </TouchableOpacity>
+        </Animated.View>
+
       </View>
       {text.length <= 0 ? (
         <ScrollView>
           {/* Slider Section */}
           <SliderImage sliderIamge={sliderIamge} />
           {/* New Stories */}
-          <View className=" px-2 my-4 mx-1">
-            <Text className="text-xl text-right py-3 font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>
+          <View className=" px-2 mt-4  mx-1">
+            <Animated.Text entering={SlideInRight.delay(500).springify()} className="text-xl pt-3 text-right font-cairoBold dark:text-whitegray">المضافة حديثاً</Animated.Text>
             {/* New Stories slider */}
             <Card stories={stories} />
           </View>
           {/* Best Stories */}
-          <View className=" px-2 my-4 mx-1">
-            <Text className=" text-xl text-right font-cairoBold dark:text-whitegray">أفضل القصص</Text>
+          <View className=" px-2  mt-4  mx-1">
+            <Text className=" text-xl py-3 text-right font-cairoBold dark:text-whitegray">قصص مميزة</Text>
             {/* Best Stories slider */}
             <Card stories={sliderIamge} />
           </View>
           <View className='py-4 px-2  flex-col justify-center items-center'>
             <Image
               source={require('../../assets/images/logo.png')}
-              className='w-9 h-20 mb-3'
+              className='h-40 mb-3'
             />
             <Text className='text-xl font-cairoRegular text-center text-black dark:text-white w-full'>حيث تعيش القصة</Text>
           </View>

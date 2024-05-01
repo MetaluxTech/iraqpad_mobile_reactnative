@@ -4,7 +4,7 @@
     "slug": "iraq-pad",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "iraqpadproject",
     "extra": {
       "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
@@ -14,11 +14,6 @@
       }
     },
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/images/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -28,7 +23,12 @@
     },
     "android": {
       "package": "com.metalux.iraqpad",
-      "versionCode": 1
+      "versionCode": 1,
+      "splash": {
+        "image": "./assets/images/logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#FE7574"
+      }
     },
     "web": {
       "bundler": "metro",
