@@ -14,10 +14,10 @@ export default function categoriesModals() {
         });
     }, [])
     return (
-        <View className="shadow-lg bg-slate-200 dark:bg-black flex-1">
+        <View className="shadow-lg bg-slate-200 dark:bg-black flex-1 pt-5">
             <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50]'>
                 {/* Title Of Category */}
-                <Text className='text-xl text-black font-cairoBold dark:text-white'>اختر الفئة</Text>
+                <Text  className='text-xl text-black font-cairoBold dark:text-white'>اختر الفئة</Text>
                 {/* Back */}
                 <TouchableOpacity
                     className="border border-[#333] dark:border-[#585757] p-2 rounded-xl"
@@ -41,7 +41,7 @@ export default function categoriesModals() {
                     renderItem={showCategoy}
                     firstItem={-1}
                     numColumns={4}
-                    columnWrapperStyle={{justifyContent: 'start',flexDirection: 'row-reverse'}}
+                    columnWrapperStyle={{justifyContent: 'center',flexDirection: 'row-reverse'}}
                 />
             </View>
         </View>
@@ -51,13 +51,13 @@ const showCategoy = ({item})=>{
     return(
         <View>
             <TouchableOpacity 
-            className="border-secondary border  text-secondary  px-6 py-3 rounded-md mx-2"
+                className="border-secondary border   px-6 py-3 rounded-md mx-2"
                 onPress={() => router.push({
                     pathname: '/storyByCategory',
                     params: item
                 })}
             >
-                <Text className="font-cairoMedium ">{item.title}</Text>
+                <Text className="font-cairoMedium text-secondary ">{item.title}</Text>
             </TouchableOpacity>
         </View>
     )
