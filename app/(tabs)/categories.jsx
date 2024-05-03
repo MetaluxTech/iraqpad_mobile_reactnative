@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Dimensions, ActivityIndicator } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import axios from 'axios';
@@ -15,6 +15,7 @@ export default function Page() {
   const [category, setCategory] = useState([])
   const [idCategory, setIdCategory] = useState([])
   const [subCategory, setSubCategory] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   // const [subCategorySelected, setSubCategorySelected] = useState([])
   const { colorScheme } = useContext(ThemeContext)
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Page() {
   const allStory = () => {
     axios.get(`https://iraqpad-web.vercel.app/api/story`).then((response) => {
       setStory(response.data.allStories);
+      setIsLoading(false)
     });
   }
   // Display Stories By Category When Clecked On Category Button
@@ -45,7 +47,6 @@ export default function Page() {
   }
   // Display Stories By SubCategory When Clecked On SubCategory Button
   const showStoryBySubCategory = (text) => {
-    console.log(text);
     axios.get(`https://iraqpad-web.vercel.app/api/story?subcategory=${text}`).then((response) => {
       const allData = response.data.allStories.filter(item => item.subcategory.title === text);
       setStory(allData);
@@ -54,10 +55,17 @@ export default function Page() {
   const subCategorySelected = subCategory.filter(item => item.categoryId === idCategory);
   const subCategoryData = subCategorySelected.map(item => item.title);
   const categoryData = category.map(item => item.title);
-
+  if (isLoading) {
+    return (
+      <View className='flex-1 w-full h-full justify-center items-center'>
+        <ActivityIndicator size={'large'} color={'red'} />
+        <Text className='font-cairoRegular text-black  text-center w-full'>يتم تحميل القصص ...</Text>
+      </View>
+    )
+  }
   return (
     <View className='flex-1  pt-10  bg-slate-200 dark:bg-black'>
-      <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50]'>
+      <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50px]'>
         {/* Title Of Category */}
         <Text className='text-xl text-black font-cairoBold dark:text-white'>كل القصص</Text>
         {/* Back */}
@@ -86,8 +94,8 @@ export default function Page() {
         {/* Choose Category */}
         <SelectList
           inputStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' }}
-          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' ,textAlign:'right'}}
-          boxStyles={{ flexDirection: 'row-reverse',width: width*0.32, borderColor: colorScheme == 'dark' ? 'white' : 'black', marginRight: 10 }}
+          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black', textAlign: 'right' }}
+          boxStyles={{ flexDirection: 'row-reverse', width: width * 0.32, borderColor: colorScheme == 'dark' ? 'white' : 'black', marginRight: 10 }}
           placeholder='اختر فئة'
           search={false}
           arrowicon={<Icon name='chevron-down-outline' size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />}
@@ -97,10 +105,10 @@ export default function Page() {
           save="value"
         />
         {/* Choose SubCategory */}
-        {subCategoryData.length > 0 &&<SelectList
+        {story.length > 0 && subCategoryData.length>0&& <SelectList
           inputStyles={{ color: colorScheme == 'dark' ? 'white' : 'black' }}
-          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black',textAlign:'right' }}
-          boxStyles={{ flexDirection: 'row-reverse', width: width*0.40, borderColor: colorScheme == 'dark' ? 'white' : 'black' }}
+          dropdownTextStyles={{ color: colorScheme == 'dark' ? 'white' : 'black', textAlign: 'right' }}
+          boxStyles={{ flexDirection: 'row-reverse', width: width * 0.40, borderColor: colorScheme == 'dark' ? 'white' : 'black' }}
           placeholder='اختر تصنيف'
           search={false}
           arrowicon={<Icon name='chevron-down-outline' size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />}
@@ -111,7 +119,8 @@ export default function Page() {
         />}
       </View>
       <View className="flex-1 px-2 pb-5">
-        <CardAllStory story={story} />
+        {/* <CardAllStory story={story} /> */}
+        {story.length > 0 ?(<CardAllStory story={story} />) : (<Text className="font-cairoBold mt-5 text-xl text-center dark:text-white">لا توجد قصص</Text>)}
       </View>
     </View>
   )

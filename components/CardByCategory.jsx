@@ -7,7 +7,7 @@ import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react
 const { height, width } = Dimensions.get('window')
 
 export default function CardByCategory({story}) {
-    const {title} = useLocalSearchParams();
+    
     return (
         <View className='mt-2 mb-3 flex-row '>
             <FlatList

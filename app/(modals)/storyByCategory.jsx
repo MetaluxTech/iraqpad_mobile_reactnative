@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList, Dimensions } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, FlatList, Dimensions, ActivityIndicator } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import axios from 'axios';
@@ -12,6 +12,7 @@ export default function Page() {
   const [story, setStory] = useState([])
   const [subCategory, setSubCategory] = useState([])
   const { title, id } = useLocalSearchParams();
+  const [isLoading, setIsLoading] = useState(true)
   const { colorScheme } = useContext(ThemeContext)
   useEffect(() => {
     allStory()
@@ -19,6 +20,7 @@ export default function Page() {
     axios.get(`https://iraqpad-web.vercel.app/api/subCategory`).then((response) => {
       const subByCategory = response.data.filter(item => item.categoryId === id);
       setSubCategory(subByCategory);
+      setIsLoading(false)
     });
   }, [])
   // Display Stories By SubCategory When Clecked On CubCategory Button
@@ -26,6 +28,7 @@ export default function Page() {
     axios.get(`https://iraqpad-web.vercel.app/api/story?subcategory=${text}`).then((response) => {
       const allData = response.data.allStories.filter(item => item.subcategory.title === text && item.categoryId === id);
       setStory(allData);
+      
     });
   }
   // Display All Stories
@@ -36,6 +39,14 @@ export default function Page() {
     });
   }
   const data = subCategory.map(item => item.title);
+  if (isLoading) {
+    return (
+      <View className='flex-1 w-full h-full justify-center items-center'>
+        <ActivityIndicator size={'large'} color={'red'} />
+        <Text className='font-cairoRegular text-black  text-center w-full'>يتم تحميل ال{title} ...</Text>
+      </View>
+    )
+  }
   return (
     <View className='flex-1  pt-10  bg-slate-200 dark:bg-black'>
       <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50]'>
@@ -53,7 +64,7 @@ export default function Page() {
           />
         </TouchableOpacity>
       </View>
-      <View className="flex-row-reverse w-full px-2 mb-5">
+      {story.length > 0 && !isLoading ?(<View className="flex-row-reverse w-full px-2 mb-5">
         <TouchableOpacity
           className='ml-2 h-[45px] border-black dark:border-white border px-4 py-2 rounded-lg'
           onPress={allStory}
@@ -80,7 +91,7 @@ export default function Page() {
           onSelect={() => dataSearched(selected)}
           save="value"
         />
-      </View>
+      </View>):(<Text className="font-cairoBold mt-5 text-xl text-center dark:text-white">لا توجد {title}</Text>)}
       <View className="flex-1 px-2 pb-5">
         <CardByCategory story={story} />
       </View>

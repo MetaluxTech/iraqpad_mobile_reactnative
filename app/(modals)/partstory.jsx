@@ -42,7 +42,7 @@ export default function index() {
       {/* Content */}
       <View className="px-4 py-5 mt-5  mx-2 flex-1">
         <ScrollView >
-          <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3 text-right">{title}</Text>
+          <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3 pt-4 text-right">{title}</Text>
           <Text className="text-sm  text-darkgray dark:text-whitegray font-cairoMedium text-right">{description}</Text>
         </ScrollView>
       </View>
