@@ -26,11 +26,11 @@ export default function RootLayoutNav() {
               <Icon name={focused ? 'home' : 'home-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
           }}/>
           <Tabs.Screen 
-            name='about'
+            name='search'
             options={{
               headerShown:false,
               tabBarIcon:({focused})=>
-              <Icon name={focused ? 'people' : 'people-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
+              <Icon name={focused ? 'search-outline' : 'search-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
           }}/>
           <Tabs.Screen 
             name='categories'
@@ -47,13 +47,12 @@ export default function RootLayoutNav() {
               <Icon name={focused ? 'heart' : 'heart-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
           }}/>
           <Tabs.Screen 
-            name='settings'
+            name='profile'
             options={{
               headerShown:false,
               tabBarIcon:({focused})=>
-              <Icon name={focused ? 'settings' : 'settings-outline'} size={25} color={focused ? '#FE7574' : '#808080'} />
+              <Icon name={focused ? 'person-circle' : 'person-circle-outline'} size={30} color={focused ? '#FE7574' : '#808080'} />
           }}/>
-          
       </Tabs>
     );
 }

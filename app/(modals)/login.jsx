@@ -47,7 +47,7 @@ export default function LoginPage() {
       </View>
       <View className="px-4 pt-10 flex-1 items-center">
         {/* Email */}
-        <View className=" flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+        <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
           <Icon name="person-outline" size={25} color={'darkgray'} />
           <TextInput
             className="ml-2 w-full"
@@ -56,7 +56,6 @@ export default function LoginPage() {
             placeholder="metalux@gmail.com"
             onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
           />
-
         </View>
         {/* Password */}
         <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-lg">

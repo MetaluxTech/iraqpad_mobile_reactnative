@@ -158,7 +158,7 @@ const Profile = () => {
 
         {/* Update Informations */}
         <TouchableOpacity
-          className="mt-10 bg-green-600 shadow py-2 rounded-sm flex-row shadow justify-center items-center"
+          className="mt-10 bg-green-600  py-2 rounded-sm flex-row shadow justify-center items-center"
           onPress={onSaveUser}
         >
           <Icon className='' name={'checkmark-outline'} size={30} color={'#fff'} />

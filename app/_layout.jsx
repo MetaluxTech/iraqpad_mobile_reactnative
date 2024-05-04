@@ -90,7 +90,7 @@ function RootLayoutNav() {
     }}>
       <Stack.Screen name="(tabs)" />
       <Stack.Screen name="(modals)/story" />
-      <Stack.Screen name="(modals)/profile" />
+      {/* <Stack.Screen name="(modals)/profile" /> */}
       <Stack.Screen name="(modals)/storyByCategory"
         options={{
           presentation: 'modal',
@@ -98,9 +98,9 @@ function RootLayoutNav() {
       <Stack.Screen name="(modals)/partstory" options={{
         presentation: 'modal',
       }} />
-      <Stack.Screen name="(modals)/categoriesModals" options={{
+      {/* <Stack.Screen name="(modals)/categoriesModals" options={{
         presentation: 'modal',
-      }} />
+      }} /> */}
       {/* <Stack.Screen name="(modals)/notifications" options={{
         presentation: 'modal',
       }} /> */}

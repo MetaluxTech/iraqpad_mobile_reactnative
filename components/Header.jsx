@@ -1,35 +1,22 @@
 import { View, Text, StatusBar, TouchableOpacity, Image, TextInput } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { Link, router } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
-import axios from 'axios';
-import { useUser } from '@clerk/clerk-expo';
-import Animated, { FadeInRight,FadeInTop ,FadeInBottom,BounceIn} from 'react-native-reanimated';
+import { ThemeContext } from '../common/ThemeProvider';
+import { router } from 'expo-router';
+
 export default function Header() {
-  const { user, isSignedIn } = useUser();
+  const { colorScheme } = useContext(ThemeContext)
   return (
-    <View className="w-full overflow-hidden shadow rounded-b-2xl bg-white dark:bg-blackdark h-[150px] pt-10 px-4 flex-row-reverse items-center justify-between">
-      {isSignedIn &&
-        <TouchableOpacity
-          onPress={() => router.push('/profile')}
-        >
-          <Animated.Image entering={FadeInRight.delay(200).springify()} source={{ uri: user.imageUrl }} className='w-[70] h-[70] rounded-full' />
-        </TouchableOpacity>
-      }
-      <Animated.View entering={BounceIn.delay(200).springify()} className=" flex-1 mx-3">
-        {isSignedIn ? (
-          <Text  className="text-right text-black dark:text-white text-xl font-cairoBold">مرحبا</Text>
-        ) : (<Text className="text-right text-black dark:text-white text-xl font-cairoBold">ياهلا بالضيف</Text>)}
-        {isSignedIn ? (
-          <TouchableOpacity onPress={() => router.push('/profile')}>
-            <Text  className="text-right text-black dark:text-white text-lg font-cairoRegular">{user.fullName}</Text>
-          </TouchableOpacity>
-        ) : (
-          <Text  className="text-right text-black dark:text-white text-lg font-cairoRegular">سجل دخول وعيش التجربة</Text>)}
-      </Animated.View>
-      {/* This For notification icon */}
-      <View className="h-[50] w-[50] "></View>
+    <View className="w-full overflow-hidden shadow rounded-b-2xl bg-white dark:bg-blackdark h-[150px] pt-8 px-4 flex-row-reverse items-center justify-between">
+      <View className=' py-1'>
+        <Image source={require("../assets/images/logo.png")} />
+      </View>
+      {/* This For another icon */}
+      <TouchableOpacity
+        onPress={() => router.push('/settings')}
+        className="border border-[#333] dark:border-[#585757] p-2 rounded-full">
+        <Icon name={'settings-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+      </TouchableOpacity>
     </View>
   )
 }
