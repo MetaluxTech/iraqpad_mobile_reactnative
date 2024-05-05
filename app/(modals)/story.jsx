@@ -137,7 +137,7 @@ const partStory = ({ item }) => {
           className="absolute bottom-0 w-full h-full rounded-lg"
           colors={['transparent', 'rgba(0,0,0,.9)']}
         />
-        <Text className='absolute z-10 bottom-2 right-2 text-white font-cairoRegular'>{item.title}</Text>
+        <Text className='absolute z-10 bottom-2 right-2 text-right text-white font-cairoRegular'>{item.title}</Text>
       </TouchableOpacity>
     </View>
   )

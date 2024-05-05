@@ -4,37 +4,31 @@ import Header from '../../components/Header'
 import SliderImage from '../../components/SliderImage'
 import Card from '../../components/Card'
 import { StatusBar } from 'expo-status-bar';
-import { ThemeContext } from '../../common/ThemeProvider'
-import axios from 'axios'
+import { ThemeContext } from '../../common/ThemeProvider';
+import axios from 'axios';
 import { I18nManager } from "react-native";
-const IS_RTL = I18nManager.isRTL;
+I18nManager.isRTL;
 const { height, width } = Dimensions.get('window')
 export default function home() {
-  const { colorScheme } = useContext(ThemeContext)
-  const [isLoading, setIsLoading] = useState(true)
+  const { colorScheme } = useContext(ThemeContext);
+  const [isLoading, setIsLoading] = useState(true);
   const [stories, setStories] = useState([]);
-  const [categories, SetCategories] = useState([])
-  const [subcategory, SetSubcategory] = useState([])
+  const [categories, SetCategories] = useState([]);
+  const [subcategory, SetSubcategory] = useState([]);
   const [sliderIamge, setSliderImage] = useState([]);
-  // useEffect(() => {
-  //   // Get Stories From Api
-  //   axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {
-  //     setStories(response.data.allStories);
-  //   });
-  //   // Get Categories From Api
-  //   axios.get('https://iraqpad-web.vercel.app/api/category').then((response) => {
-  //     SetCategories(response.data)
-  //   });
-  //   // Get SubCategories From Api
-  //   axios.get('https://iraqpad-web.vercel.app/api/subCategory').then((response) => {
-  //     SetSubcategory(response.data)
-  //     setIsLoading(false)
-  //   });
-  // }, [])
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   useEffect(() => {
     sliders();
-    fetchData()
   }, [stories])
+  useEffect(() => {
+    const fetchNewStories = () => {
+      fetchData()
+    };
+    fetchNewStories();
+  }, [stories]);
   const fetchData = () => {
     // Get Stories From Api
     axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {

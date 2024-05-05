@@ -12,7 +12,7 @@ export default function Page() {
       </SignedIn>
       <SignedOut>
       <TouchableOpacity
-        onPress={()=>router.push('(modals)/login')}
+        onPress={()=>router.push('/login')}
       >
         <Text className="bg-secondary dark:bg-secondary text-white rounded-sm shadow-lg p-3">يرجى تسجيل الدخول لمشاهدة الصفحة</Text>
       </TouchableOpacity>

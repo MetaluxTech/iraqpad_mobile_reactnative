@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useOAuth, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useWarmUpBrowser } from '../../hooks/useWarmUpBrowser';
@@ -66,74 +66,76 @@ export default function SignUpScreen() {
     <View className=" flex-1">
       {!pendingVerification && (
         <View className="bg-slate-100 dark:bg-black flex-1">
-          {/* Close Button */}
-          <TouchableOpacity
-            onPress={() => router.back()}
-            className="absolute top-10 left-5 z-10  p-3 rounded-full"
-          >
-            <Icon name={'arrow-back-outline'} size={30} color={colorScheme == 'dark' ? 'white' : 'black'} />
-          </TouchableOpacity>
-          {/* Header Style */}
-          <View className='flex h-[250] items-center justify-end '>
-            <View className="">
-              <Icon name="person-add-outline" size={70} color={'red'} />
-            </View>
-            <Text className="text-black dark:text-white font-cairoBold mt-2 text-xl">انشاء حساب جديد</Text>
-          </View>
-          <View className='px-4  pt-10 flex-1 items-center justify-start'>
-            <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-              <TextInput
-                className="w-full"
-                autoCapitalize="none"
-                value={firstName}
-                placeholder="First Name"
-                onChangeText={(firstName) => setFirstName(firstName)}
-              />
-            </View>
-            <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-              <TextInput
-                className="w-full"
-                autoCapitalize="none"
-                value={lastName}
-                placeholder="Last Name"
-                onChangeText={(lastName) => setLastName(lastName)}
-              />
-            </View>
-            <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-              <TextInput
-                className="w-full"
-                // autoCapitalize="none"
-                value={username}
-                placeholder="user Name"
-                onChangeText={(username) => setUserName(username)}
-              />
-            </View>
-            <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-              <TextInput
-                className="w-full"
-                autoCapitalize="none"
-                value={emailAddress}
-                placeholder="E-mail Address"
-                onChangeText={(email) => setEmailAddress(email)}
-              />
-            </View>
-            <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-              <TextInput
-                className="w-full"
-                value={password}
-                placeholder="password"
-                secureTextEntry={true}
-                onChangeText={(password) => setPassword(password)}
-              />
-            </View>
-            {/* Create Account */}
+          <ScrollView>
+            {/* Close Button */}
             <TouchableOpacity
-              className="bg-secondary w-fit flex-row-reverse p-3 rounded-lg shadow"
-              onPress={onSignUpPress}>
-              <Text className="text-white text-center font-cairoMedium ml-1">انشاء حساب</Text>
-              <Icon name="arrow-back-outline" size={25} color={'#fff'} />
+              onPress={() => router.back()}
+              className="absolute top-10 left-5 z-10  p-3 rounded-full"
+            >
+              <Icon name={'arrow-back-outline'} size={30} color={colorScheme == 'dark' ? 'white' : 'black'} />
             </TouchableOpacity>
-          </View>
+            {/* Header Style */}
+            <View className='flex h-[250] items-center justify-end '>
+              <View className="">
+                <Icon name="person-add-outline" size={70} color={'red'} />
+              </View>
+              <Text className="text-black dark:text-white font-cairoBold mt-2 text-xl">انشاء حساب جديد</Text>
+            </View>
+            <View className='px-4  pt-10 flex-1 items-center justify-start'>
+              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+                <TextInput
+                  className="w-full text-right"
+                  autoCapitalize="none"
+                  value={firstName}
+                  placeholder="الاسم الاول"
+                  onChangeText={(firstName) => setFirstName(firstName)}
+                />
+              </View>
+              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+                <TextInput
+                  className="w-full text-right"
+                  autoCapitalize="none"
+                  value={lastName}
+                  placeholder="الاسم الثاني"
+                  onChangeText={(lastName) => setLastName(lastName)}
+                />
+              </View>
+              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+                <TextInput
+                  className="w-full text-right"
+                  // autoCapitalize="none"
+                  value={username}
+                  placeholder="اسم المستخدم"
+                  onChangeText={(username) => setUserName(username)}
+                />
+              </View>
+              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+                <TextInput
+                  className="w-full"
+                  autoCapitalize="none"
+                  value={emailAddress}
+                  placeholder="الايميل"
+                  onChangeText={(email) => setEmailAddress(email)}
+                />
+              </View>
+              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+                <TextInput
+                  className="w-full text-right"
+                  value={password}
+                  placeholder="الرمز السري"
+                  secureTextEntry={true}
+                  onChangeText={(password) => setPassword(password)}
+                />
+              </View>
+              {/* Create Account */}
+              <TouchableOpacity
+                className="bg-secondary w-fit flex-row-reverse p-3 rounded-lg shadow"
+                onPress={onSignUpPress}>
+                <Text className="text-white  text-center font-cairoMedium ml-1">انشاء حساب</Text>
+                <Icon name="arrow-back-outline" size={25} color={'#fff'} />
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
       )}
       {pendingVerification && (
@@ -161,6 +163,7 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       )}
+
     </View>
   );
 }

@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
-import { StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, Keyboard, StatusBar, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { useAuth, useSignIn } from "@clerk/clerk-expo";
 import { router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
-import SignInWithOAuth from "../../components/SignInWithOAuth";
+// import SignInWithOAuth from "../../components/SignInWithOAuth";
 import { ThemeContext } from "../../common/ThemeProvider";
 import PwReset from "./reset";
 export default function LoginPage() {
+
   const { colorScheme } = useContext(ThemeContext);
   const { signIn, setActive, isLoaded } = useSignIn();
   const { isSignedIn } = useAuth()
@@ -47,23 +48,23 @@ export default function LoginPage() {
       </View>
       <View className="px-4 pt-10 flex-1 items-center">
         {/* Email */}
-        <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
-          <Icon name="person-outline" size={25} color={'darkgray'} />
+        <View className="relative overflow-hidden flex-row-reverse items-center mb-5 w-[100%] h-[50px]  rounded-lg bg-white shadow-xl">
+          {/* <Icon name="person-outline" size={25} color={'darkgray'} /> */}
           <TextInput
-            className="ml-2 w-full"
+            className="w-full h-full p-2 absolute left-0 top-0 text-right"
             autoCapitalize="none"
             value={emailAddress}
-            placeholder="metalux@gmail.com"
+            placeholder="ادخل ايميلك"
             onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
           />
         </View>
         {/* Password */}
-        <View className="overflow-hidden flex-row items-center mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-lg">
-          <Icon name="lock-closed-outline" size={25} color={'darkgray'} />
+        <View className="relative overflow-hidden flex-row-reverse items-center mb-5 w-[100%] h-[50px]  rounded-lg bg-white shadow-xl">
+          {/* <Icon name="lock-closed-outline" size={25} color={'darkgray'} /> */}
           <TextInput
-            className="ml-2 w-full"
+            className="w-full h-full p-2 absolute left-0 top-0 text-right"
             value={password}
-            placeholder="password"
+            placeholder="الرمز السري"
             secureTextEntry={true}
             onChangeText={(password) => setPassword(password)}
           />
@@ -71,7 +72,7 @@ export default function LoginPage() {
         {/* Reset Password */}
         <View className='flex-row items-center justify-between py-3 w-full mb-4'>
           <TouchableOpacity
-            onPress={() => router.push('(modals)/reset')}
+            onPress={() => router.push('/reset')}
             className=''>
             <Text
               className='text-darkgray dark:text-whitegray text-right font-cairoLight'
