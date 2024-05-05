@@ -1,13 +1,24 @@
 
-import React from 'react';
+import { router } from 'expo-router';
+import React, { useContext } from 'react';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, TouchableOpacity, Alert, SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
+import { ThemeContext } from '../../common/ThemeProvider';
 const { height, width } = Dimensions.get('window')
 const About = () => {
+  const { colorScheme} = useContext(ThemeContext)
   return (
     <View className="flex-1  pt-10  bg-slate-200 dark:bg-black">
-      <SafeAreaView />
-      <View className='px-4 mt-5 w-full'>
-        <Text className='text-xl text-black text-right font-cairoBold dark:text-white'>نبذة عن عراقباد</Text>
+      {/* Header Section */}
+      <View className='px-4 mt-5 w-full flex-row-reverse justify-between items-center h-[40] '>
+        <Text className='text-xl text-black text-right font-cairoBold dark:text-white'> عراقباد</Text>
+        {/* Close Button */}
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className=" border border-[#333] dark:border-[#585757] p-2 rounded-xl"
+        >
+          <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+        </TouchableOpacity>
       </View>
       <View className=' pt-5 bg-white dark:bg-[#111] flex-1 mt-5 shadow-sm rounded-t-[30]'>
         <ScrollView>
@@ -25,7 +36,7 @@ const About = () => {
             </Text>
             {/* <Image className='w-full h-[200px] my-4' source={require('../../assets/images/about.jpg')} /> */}
           </View>
-          <View className='w-[90%] border-b border-darkgray dark:border-whitegray mx-auto'/>
+          <View className='w-[90%] border-b border-darkgray dark:border-whitegray mx-auto' />
           <View className='p-4 pt-4'>
             <Text className='text-xl text-black text-right font-cairoBold dark:text-white'>مؤسس عراقباد</Text>
             <View className='w-full flex-col justify-center items-center py-4 px-2'>

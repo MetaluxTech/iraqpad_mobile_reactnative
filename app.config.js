@@ -20,5 +20,8 @@ module.exports = {
     "package": "com.metalux.iraqpad",
 
   },
-
+  "ios": {
+    "supportsTablet": true,
+    "bundleIdentifier": "com.metalux.iraqpad"
+  },
 };

@@ -26,7 +26,7 @@ export default function Page() {
       {/* settings container */}
       <View className=' pt-5 bg-white dark:bg-[#111] flex-1 mt-5 shadow-sm rounded-t-[30]'>
         {/* profile */}
-        {isSignedIn &&
+        {/* {isSignedIn &&
         <TouchableOpacity onPress={()=>router.push('/profile')} >
         <View className="flex-row-reverse justify-between items-center p-4 ">
           <Text className="font-cairoRegular text-md dark:text-whitegray">الملف الشخصي</Text>
@@ -38,7 +38,7 @@ export default function Page() {
               color={colorScheme=='dark' ?'white':'black'} 
           />
         </View>
-        </TouchableOpacity>}
+        </TouchableOpacity>} */}
         {/* dark mode */}
         <View className="flex-row-reverse justify-between items-center p-4 ">
           <Text className="font-cairoRegular text-md dark:text-whitegray">الوضع المظلم</Text>
