@@ -77,7 +77,7 @@ const search = () => {
             <CardByCategory story={searchData} />
           ) : (
             <View className='flex justify-center items-center'>
-              <Text className="font-cairoBold text-red dark:text-white"> اسم القصة المراد البحث عنها غير موجود</Text>
+              <Text className="font-cairoBold text-red "> اسم القصة المراد البحث عنها غير موجود</Text>
             </View>)}
         </View>
       ) : (
@@ -85,7 +85,7 @@ const search = () => {
           <Text className="font-cairoBold text-black dark:text-white">اكتب اسم القصة المراد البحث عنها</Text>
         </View>
       )}
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"} />
     </View>
   )
 }

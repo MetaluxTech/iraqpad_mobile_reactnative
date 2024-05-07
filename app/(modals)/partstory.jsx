@@ -46,7 +46,7 @@ export default function index() {
           <Text className="text-lg  text-darkgray dark:text-whitegray font-cairoMedium text-right">{description}</Text>
         </View>
       </ScrollView>
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"}/>
     </View>
   )
 }

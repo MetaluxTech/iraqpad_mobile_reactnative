@@ -1,36 +1,35 @@
 {
-  "icon": "./assets/images/logo.png",
+  
   "expo": {
     "name": "IraqPad",
-    "slug": "iraq-pad",
+    "scheme" : "myapp",
+    "slug": "iraqpadproject",
     "version": "1.0.0",
     "orientation": "portrait",
-    
-    "scheme": "iraqpadproject",
+    "icon":"./assets/images/ic_launcher.png",
     "extra": {
       "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
       "clerkSecretKey": "​sk_test_zfrtbX5riGWMKc8PgK06dIBAl21iHQpaH1dTsnZLA0",
       "eas": {
-        "projectId": "8eaf19d3-673f-4cdc-b931-d612f4f2db5b"
+        "projectId": "5095a4bb-1b66-4bd8-8e63-decfec2e6415"
       }
     },
-    "userInterfaceStyle": "automatic",
     "assetBundlePatterns": [
       "**/*"
     ],
+    "platforms": [
+      "android",
+      "ios"
+    ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.metalux.iraqpad"
+      "supportsTablet": true
     },
     "android": {
       "package": "com.metalux.iraqpad",
-      "versionCode": 1,
-      "splash": {
-        "image": "./assets/images/logo.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#FE7574"
-      }
+      "versionCode": 1
+      
     },
+    
     "web": {
       "bundler": "metro",
       "output": "static",
@@ -38,9 +37,6 @@
     },
     "plugins": [
       "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+    ]
   }
 }
