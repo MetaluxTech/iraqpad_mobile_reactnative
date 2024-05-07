@@ -31,7 +31,7 @@ export default function LoginPage() {
   };
   return (
     <View className="bg-slate-100  flex-1 relative dark:bg-black">
-      <StatusBar style='light' />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
       {/* Close Button */}
       <TouchableOpacity
         onPress={() => router.navigate('/')}

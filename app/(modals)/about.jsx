@@ -2,7 +2,7 @@
 import { router } from 'expo-router';
 import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { View, Text, TouchableOpacity, Alert, SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
+import { View, Text,StatusBar, TouchableOpacity, Alert, SafeAreaView, ScrollView, Image, Dimensions } from 'react-native';
 import { ThemeContext } from '../../common/ThemeProvider';
 const { height, width } = Dimensions.get('window')
 const About = () => {
@@ -49,6 +49,8 @@ const About = () => {
           </View>
         </ScrollView>
       </View>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"}/>
+
     </View>
   );
 }

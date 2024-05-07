@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useOAuth, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useWarmUpBrowser } from '../../hooks/useWarmUpBrowser';
@@ -163,7 +163,7 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       )}
-
+        <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
     </View>
   );
 }

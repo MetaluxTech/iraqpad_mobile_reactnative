@@ -7,7 +7,8 @@ import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 import axios from 'axios';
 import { I18nManager } from "react-native";
-I18nManager.isRTL;
+I18nManager.forceRTL(false);
+I18nManager.allowRTL(false);
 const { height, width } = Dimensions.get('window')
 export default function home() {
   const { colorScheme } = useContext(ThemeContext);
@@ -64,7 +65,7 @@ export default function home() {
         <Header />
         <View className='mt-10'>
           {/* Slider Section */}
-          <SliderImage sliderIamge={sliderIamge} />
+          {/* <SliderImage sliderIamge={sliderIamge} /> */}
           {/* New Stories */}
           <View className=" px-2 mt-4  mx-1">
             <Text className="text-xl pt-3 text-right font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>

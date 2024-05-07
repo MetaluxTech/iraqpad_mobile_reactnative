@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, Image, Switch } from 'react-native'
+import { View, Text, TouchableOpacity,StatusBar, Image, Switch } from 'react-native'
 import React, { useContext } from 'react'
 import { useAuth,useUser } from '@clerk/clerk-expo'
 import { Link, router } from 'expo-router'
 import Icon from 'react-native-vector-icons/Ionicons';
-import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 export default function Page() {
   const { colorScheme,toggleTheme} = useContext(ThemeContext)
@@ -12,7 +11,7 @@ export default function Page() {
   return (
     <View  className=" flex-1  pt-10  bg-slate-200 dark:bg-black">
       {/* Header Section */}
-      <View className='px-4 mt-5 w-full flex-row-reverse justify-between items-center h-[40] '>
+      <View className='px-4 mt-5 w-full flex-row-reverse justify-between items-center h-[40px] '>
         <Text className='text-xl text-black font-cairoBold dark:text-white'>الاعدادات</Text>
         {/* Close Button */}
         <TouchableOpacity
@@ -24,7 +23,7 @@ export default function Page() {
       </View>
       
       {/* settings container */}
-      <View className=' pt-5 bg-white dark:bg-[#111] flex-1 mt-5 shadow-sm rounded-t-[30]'>
+      <View className=' pt-5 bg-white dark:bg-[#111] flex-1 mt-5 shadow-sm rounded-t-[30px]'>
         {/* profile */}
         {/* {isSignedIn &&
         <TouchableOpacity onPress={()=>router.push('/profile')} >
@@ -144,7 +143,8 @@ export default function Page() {
           </TouchableOpacity>} 
         </View>
       </View>
-      <StatusBar style={colorScheme=="dark"? "light": "dark"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
+
     </View>
   )
 }
