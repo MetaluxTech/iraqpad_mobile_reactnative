@@ -1,12 +1,15 @@
 {
-  
   "expo": {
     "name": "IraqPad",
-    "scheme" : "myapp",
+    "scheme": "myapp",
     "slug": "iraqpadproject",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon":"./assets/images/ic_launcher.png",
+    "icon": "./assets/images/icon.png",
+    "splash":{
+      "image": "./assets/images/splash.png",
+      "backgroundColor": "#ffffff"
+    },
     "extra": {
       "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
       "clerkSecretKey": "​sk_test_zfrtbX5riGWMKc8PgK06dIBAl21iHQpaH1dTsnZLA0",
@@ -27,9 +30,7 @@
     "android": {
       "package": "com.metalux.iraqpad",
       "versionCode": 1
-      
     },
-    
     "web": {
       "bundler": "metro",
       "output": "static",

@@ -157,7 +157,7 @@ const Profile = () => {
               value={username || ''}
               placeholder={username ? username : ' اضف اسم مستخدم'}
               onChangeText={setUserName}
-              className=' font-cairoMedium text-right rounded text-darkgray border-darkgray border w-[180] px-2'
+              className=' font-cairoMedium text-right rounded text-darkgray border-darkgray border w-[180px] px-2'
             />
           </View>
 
