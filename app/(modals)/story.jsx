@@ -19,7 +19,7 @@ export default function index() {
   const day = dateObject.getDate();
   const formattedDate = `${year}-${month}-${day}`;
   const [part, setPart] = useState([]);
-  const { colorScheme } = useContext(ThemeContext)
+  const { colorScheme ,setActivePart} = useContext(ThemeContext)
   // Get part Of Story From Api
   useEffect(() => {
     axios.get(`https://iraqpad-web.vercel.app/api/part?storyId=${id}`).then((response) => {
@@ -99,7 +99,12 @@ export default function index() {
             keyExtractor={item => item.id}
             horizontal
             showsHorizontalScrollIndicators={false}
-            renderItem={partStory}
+            renderItem={({ item }) => (
+              <PartStory
+                item={item}
+                setActivePart={setActivePart}
+              />
+            )}
             firstItem={1}
           />
 
@@ -118,15 +123,17 @@ export default function index() {
     </View>
   )
 }
-const partStory = ({ item }) => {
+const PartStory = ({ item, setActivePart }) => {
   return (
     <View className="ml-2 ">
-
       <TouchableOpacity
-        onPress={() => router.push({
-          pathname: '/partstory',
-          params: item
-        })}
+        onPress={() => {
+          setActivePart(item.id);
+          router.push({
+            pathname: '/partstory',
+            params: item
+          })
+        }}
       >
         <Image
           style={{ height: 80, width: 150, borderRadius: 10 }}

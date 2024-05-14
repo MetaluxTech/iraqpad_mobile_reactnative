@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useOAuth, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
@@ -17,7 +17,6 @@ export default function SignUpScreen() {
   const [username, setUserName] = React.useState("");
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
-
   const [pendingVerification, setPendingVerification] = React.useState(false);
   const [code, setCode] = React.useState("");
 
@@ -26,7 +25,6 @@ export default function SignUpScreen() {
     if (!isLoaded) {
       return;
     }
-
     try {
       await signUp.create({
         firstName,
@@ -40,7 +38,12 @@ export default function SignUpScreen() {
       // change the UI to our pending section.
       setPendingVerification(true);
     } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      if (err.errors[0].code === "form_identifier_exists") {
+        alert("هذا الايميل موجود مسبقاً، يرجى استخدام ايميل آخر."); 
+      }
+      if(err.errors[0].code ==="form_param_nil"){
+        alert("يرجى ملئ الحقول المطلوبة")
+      }
     }
   };
 
@@ -63,7 +66,7 @@ export default function SignUpScreen() {
   };
 
   return (
-    <View className=" flex-1">
+    <View className=" flex-1 ">
       {!pendingVerification && (
         <View className="bg-slate-100 dark:bg-black flex-1">
           <ScrollView>
@@ -100,16 +103,20 @@ export default function SignUpScreen() {
                   onChangeText={(lastName) => setLastName(lastName)}
                 />
               </View>
-              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+              <View className="overflow-hidden  w-full rounded-lg py-4 px-2 bg-white shadow-xl">
                 <TextInput
                   className="w-full text-right"
                   // autoCapitalize="none"
                   value={username}
-                  placeholder="اسم المستخدم"
+                  placeholder="اسم المستخدم (اختياري)"
                   onChangeText={(username) => setUserName(username)}
                 />
               </View>
-              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+              {!username && (
+                <View className="w-full ">
+                  <Text className='text-right font-cairoMedium text-black dark:text-whitegray '>اسم المستخدم يجب ان يحتوى على (4) احرف على الاقل</Text>
+                </View>)}
+              <View className="overflow-hidden mt-5 mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
                 <TextInput
                   className="w-full"
                   autoCapitalize="none"
@@ -118,7 +125,7 @@ export default function SignUpScreen() {
                   onChangeText={(email) => setEmailAddress(email)}
                 />
               </View>
-              <View className="overflow-hidden mb-5 w-full rounded-lg py-4 px-2 bg-white shadow-xl">
+              <View className="overflow-hidden  w-full rounded-lg py-4 px-2 bg-white shadow-xl">
                 <TextInput
                   className="w-full text-right"
                   value={password}
@@ -127,9 +134,15 @@ export default function SignUpScreen() {
                   onChangeText={(password) => setPassword(password)}
                 />
               </View>
+              {!password && (
+                <View className="w-full mb-3">
+                  <Text className='text-right font-cairoMedium text-black dark:text-whitegray '>الباسورد يجب ان يحتوي على (8)احرف</Text>
+                  <Text className='text-right font-cairoMedium text-black dark:text-whitegray '>الباسورد يجب ان يحتوي على (1) رقم على الاقل </Text>
+                  <Text className='text-right font-cairoMedium text-black dark:text-whitegray '>الباسورد يجب ان يحتوي على  (1) رمز على الاقل </Text>
+                </View>)}
               {/* Create Account */}
               <TouchableOpacity
-                className="bg-secondary w-fit flex-row-reverse p-3 rounded-lg shadow"
+                className="bg-secondary w-fit flex-row-reverse p-3 mb-5 mt-5 rounded-lg shadow"
                 onPress={onSignUpPress}>
                 <Text className="text-white  text-center font-cairoMedium ml-1">انشاء حساب</Text>
                 <Icon name="arrow-back-outline" size={25} color={'#fff'} />
@@ -163,7 +176,7 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       )}
-        <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"} />
     </View>
   );
 }
