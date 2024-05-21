@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
-import React from 'react'
 
+import React from 'react'
+import { Text } from 'react-native';
+import { WebView } from 'react-native-webview';
 export default function privacyPolicy() {
   return (
-    <View>
-      <Text>privacyPolicy</Text>
-    </View>
+    <>
+    <WebView source={{ uri: 'https://iraqpad.com/privacypolicy' }} style={{ flex: 1,marginTop:20 }} />
+    </>
   )
 }
