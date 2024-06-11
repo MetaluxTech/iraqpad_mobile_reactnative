@@ -10,7 +10,7 @@ export default function categoriesModals() {
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
         // Get Categories From Api
-        axios.get('https://iraqpad-web.vercel.app/api/category').then((response) => {
+        axios.get('https://www.iraqpad.com/api/category').then((response) => {
             SetCategories(response.data)
             setIsLoading(false)
         });

@@ -13,7 +13,7 @@ const search = () => {
   const [text, setText] = useState('');
 
   useEffect(() => {
-    axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {
+    axios.get('https://www.iraqpad.com/api/story').then((response) => {
       setStories(response.data.allStories);
     });
   }, [])

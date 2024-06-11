@@ -32,15 +32,15 @@ export default function home() {
   }, [stories]);
   const fetchData = () => {
     // Get Stories From Api
-    axios.get('https://iraqpad-web.vercel.app/api/story').then((response) => {
+    axios.get('https://www.iraqpad.com/api/story').then((response) => {
       setStories(response.data.allStories);
     });
     // Get Categories From Api
-    axios.get('https://iraqpad-web.vercel.app/api/category').then((response) => {
+    axios.get('https://www.iraqpad.com/api/category').then((response) => {
       SetCategories(response.data)
     });
     // Get SubCategories From Api
-    axios.get('https://iraqpad-web.vercel.app/api/subCategory').then((response) => {
+    axios.get('https://www.iraqpad.com/api/subCategory').then((response) => {
       SetSubcategory(response.data)
       setIsLoading(false)
     });

@@ -1,4 +1,4 @@
-import { View, Text, Image, StatusBar, FlatList, ScrollView } from 'react-native'
+import { View, Text, Image, StatusBar, FlatList, ScrollView, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,6 +8,8 @@ import { useAuth } from '@clerk/clerk-expo';
 import { Alert } from 'react-native';
 import axios from 'axios';
 import { ThemeContext } from '../../common/ThemeProvider';
+import RenderHtml from 'react-native-render-html';
+const { width } = Dimensions.get('window')
 export default function index() {
   const { isSignedIn } = useAuth()
   const [addFavorite, setAddFavorite] = useState(false);
@@ -22,7 +24,7 @@ export default function index() {
   const { colorScheme ,setActivePart} = useContext(ThemeContext)
   // Get part Of Story From Api
   useEffect(() => {
-    axios.get(`https://iraqpad-web.vercel.app/api/part?storyId=${id}`).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/part?storyId=${id}`).then((response) => {
       const partsForStory = response.data.allParts.filter(part => part.storyId === id);
       setPart(partsForStory);
     });
@@ -116,7 +118,11 @@ export default function index() {
           <View className='my-2 '>
             <Text className='text-sm font-cairoLight text-darkgray text-right dark:text-whitegray'>تم النشر بتاريخ: {formattedDate}</Text>
           </View>
-          <Text className="text-sm text-darkgray text-right dark:text-whitegray font-cairoMedium">{description}</Text>
+          <RenderHtml
+            contentWidth={width}
+            source={{ html: description }}
+            baseStyle={{ color: colorScheme === 'dark' ? '#EDEDED' : '#808080' }}
+          />
         </View>
       </ScrollView>
       <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"} />
