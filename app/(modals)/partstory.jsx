@@ -1,4 +1,4 @@
-import { View, Text, Image, StatusBar, ScrollView, Modal, FlatList } from 'react-native'
+import { View, Text, Image, StatusBar, ScrollView, Modal, FlatList, Dimensions } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -6,7 +6,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 import { ThemeContext } from '../../common/ThemeProvider';
 import axios from 'axios';
-
+import RenderHtml from 'react-native-render-html';
+const { width } = Dimensions.get('window')
 export default function index() {
   const { colorScheme, setActivePart, activePartId } = useContext(ThemeContext)
   const { title, picture, description, storyId } = useLocalSearchParams();
@@ -14,7 +15,7 @@ export default function index() {
   const [part, setPart] = useState([])
   // Get part Of Story From Api
   useEffect(() => {
-    axios.get(`https://iraqpad-web.vercel.app/api/part?storyId=${storyId}`).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`).then((response) => {
       const partsForStory = response.data.allParts.filter(part => part.storyId === storyId);
       setPart(partsForStory);
     });
@@ -49,10 +50,14 @@ export default function index() {
         {/* Content */}
         <View className="px-4 py-5 mt-5  mx-2 flex-1">
           <Text className="text-2xl  font-cairoBold text-black dark:text-white mb-3 pt-4 text-right">{title}</Text>
-          <Text className="text-lg  text-darkgray dark:text-whitegray font-cairoMedium text-right">{description}</Text>
+          <RenderHtml
+            contentWidth={width}
+            source={{ html: description }}
+            baseStyle={{ color: colorScheme === 'dark' ? '#EDEDED' : '#808080' }}
+          />
         </View>
         {/* Bottom Content */}
-        <View className='flex-row items-center justify-between py-2 px-4 w-full bg-white shadow-sm rounded-t-[30px] dark:bg-black'>
+        {part&&<View className='flex-row items-center justify-between py-2 px-4 w-full bg-white shadow-sm rounded-t-[30px] dark:bg-black'>
           <TouchableOpacity className='p-3 ' onPress={() => setModalVisible(true)}>
             <Text className='font-cairoRegular text-md text-secondary '>عرض الفصول</Text>
           </TouchableOpacity>
@@ -60,7 +65,7 @@ export default function index() {
             onPress={() => router.back()}>
             <Text className='font-cairoRegular text-md text-secondary '>رجوع</Text>
           </TouchableOpacity>
-        </View>
+        </View>}
         {/* Modal To Display The Parts Of this Story */}
         <Modal transparent={true} visible={modalVisible} animationType="slide">
           <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] absolute bottom-0">

@@ -38,7 +38,7 @@ export default function Page() {
   const showStoryByCategory = (selectedTitle) => {
     const selectedCategory = category.find(cat => cat.title === selectedTitle);
     if (selectedCategory) {
-      axios.get(`https://iraqpad-web.vercel.app/api/story?category=${selectedTitle}`).then((response) => {
+      axios.get(`https://www.iraqpad.com/api/story?category=${selectedTitle}`).then((response) => {
         const allData = response.data.allStories.filter(item => item.category.title === selectedTitle);
         setStory(allData);
       });
@@ -47,7 +47,7 @@ export default function Page() {
   }
   // Display Stories By SubCategory When Clecked On SubCategory Button
   const showStoryBySubCategory = (text) => {
-    axios.get(`https://iraqpad-web.vercel.app/api/story?subcategory=${text}`).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/story?subcategory=${text}`).then((response) => {
       const allData = response.data.allStories.filter(item => item.subcategory.title === text);
       setStory(allData);
     });

@@ -17,7 +17,7 @@ export default function Page() {
   useEffect(() => {
     allStory()
     // Dispaly All SubCategories In Flatlist
-    axios.get(`https://iraqpad-web.vercel.app/api/subCategory`).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/subCategory`).then((response) => {
       const subByCategory = response.data.filter(item => item.categoryId === id);
       setSubCategory(subByCategory);
       setIsLoading(false)
@@ -25,7 +25,7 @@ export default function Page() {
   }, [])
   // Display Stories By SubCategory When Clecked On CubCategory Button
   const dataSearched = (text) => {
-    axios.get(`https://iraqpad-web.vercel.app/api/story?subcategory=${text}`).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/story?subcategory=${text}`).then((response) => {
       const allData = response.data.allStories.filter(item => item.subcategory.title === text && item.categoryId === id);
       setStory(allData);
       
