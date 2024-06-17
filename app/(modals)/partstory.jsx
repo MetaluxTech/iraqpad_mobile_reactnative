@@ -1,5 +1,5 @@
 import { View, Text, Image, StatusBar, ScrollView, Modal, FlatList, Dimensions } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -12,10 +12,16 @@ export default function index() {
   const { colorScheme, setActivePart, activePartId } = useContext(ThemeContext)
   const { title, picture, description, storyId } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
-  const [part, setPart] = useState([])
+  const [part, setPart] = useState([]);
+  console.log(title)
   // Get part Of Story From Api
   useEffect(() => {
-    axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`).then((response) => {
+    
+    axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`, {
+      headers: {
+          'Cache-Control': 'no-cache'
+      }
+  }).then((response) => {
       const partsForStory = response.data.allParts.filter(part => part.storyId === storyId);
       setPart(partsForStory);
     });
@@ -75,11 +81,12 @@ export default function index() {
                 <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
               </TouchableOpacity>
             </View>
-            <View className="py-3 px-3 mt-3">
+            <View className="py-3 px-3 mt-5 mb-10">
               <FlatList
                 data={part}
                 inverted={false}
                 keyExtractor={item => item.id}
+                initialNumToRender={7}
                 renderItem={({ item }) => (
                   <PartStory
                     item={item}
@@ -98,11 +105,12 @@ export default function index() {
   )
 }
 
-const PartStory = ({ item, activePartId, setActivePart }) => {
+const PartStory = memo(({ item, activePartId, setActivePart }) => {
   const isActive = item.id === activePartId;
   return (
-    <View className="pb-2 ">
+    <View className="mb-3">
       <TouchableOpacity
+        className="bg-secondary w-full py-3 px-6 flex-row justify-center items-center rounded-md shadow"
         onPress={() => {
           setActivePart(item.id);
           router.push({
@@ -111,8 +119,8 @@ const PartStory = ({ item, activePartId, setActivePart }) => {
           })
         }}
       >
-        <Text className={isActive ? 'text-red text-right  font-cairoRegular' : 'text-black dark:text-white text-right  font-cairoRegular'}>{item.title}</Text>
+        <Text className={isActive ? 'text-white  font-cairoRegular' : 'text-black font-cairoRegular'}>{item.title}</Text>
       </TouchableOpacity>
     </View>
   )
-}
+})
