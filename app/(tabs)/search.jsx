@@ -1,5 +1,5 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import { View, Text, TextInput, TouchableOpacity, ScrollView, FlatList, ActivityIndicator } from 'react-native'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../../common/ThemeProvider';
 import { router } from 'expo-router';
@@ -11,12 +11,27 @@ const search = () => {
   const [stories, setStories] = useState([]);
   const [searchData, setSearchData] = useState([]);
   const [text, setText] = useState('');
-
+  const [categories, SetCategories] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     axios.get('https://www.iraqpad.com/api/story').then((response) => {
       setStories(response.data.allStories);
     });
+    // Get Categories From Api
+    axios.get('https://www.iraqpad.com/api/category').then((response) => {
+      SetCategories(response.data);
+      setIsLoading(false);
+    });
   }, [])
+
+  if (isLoading) {
+    return (
+      <View className='flex-1 w-full h-full justify-center items-center'>
+        <ActivityIndicator size={'large'} color={'red'} />
+        <Text className='font-cairoRegular text-black  text-center w-full'>يتم تحميل البيانات ...</Text>
+      </View>
+    )
+  }
   // Search Data From Api
   const dataSearched = (text) => {
     setText(text)
@@ -32,7 +47,7 @@ const search = () => {
     <View className="flex-1 pt-10 bg-slate-200 dark:bg-black">
       {/* Header Section */}
       <View className='px-4 mt-5 w-full flex-row-reverse justify-between items-center h-[40] '>
-        <Text className='text-xl text-black font-cairoBold dark:text-white'>صفحة البحث</Text>
+        <Text className='text-xl text-black font-cairoBold dark:text-white'> البحث</Text>
         {/* Close Button */}
         <TouchableOpacity
           onPress={() => router.back()}
@@ -51,24 +66,14 @@ const search = () => {
             onPress={() => setText('')}
           />
           <TextInput
-            className='  border-darkgray text-black dark:text-white text-right rounded-xl border px-2 py-3 '
+            className='  border-darkgray font-cairoMedium text-black dark:text-white text-right rounded-xl border px-2 py-3 '
             onChangeText={(text) => dataSearched(text)}
             placeholder='البحث عن قصص'
             placeholderTextColor={colorScheme == "dark" ? "white" : "darkgray"}
             value={text}
           />
         </View>
-        {/* <View>
-          <TouchableOpacity
-            onPress={() => router.push('categoriesModals')}
-            className=' border-darkgray border rounded-full  h-[50] w-[50] ml-2 flex-row justify-center items-center'>
-            <Icon
-              name={'options-outline'}
-              size={20}
-              color={colorScheme == "dark" ? "white" : "darkgray"}
-            />
-          </TouchableOpacity>
-        </View> */}
+
       </View>
       {text.length > 0 ? (
         <View className='px-2 pb-5 flex-1'>
@@ -81,13 +86,47 @@ const search = () => {
             </View>)}
         </View>
       ) : (
-        <View className='flex justify-center items-center'>
-          <Text className="font-cairoBold text-black dark:text-white">اكتب اسم القصة المراد البحث عنها</Text>
+        <View className=" flex-1 mt-3">
+          <View className='px-4 w-full '>
+            {/* Title Of Category */}
+            <Text className='text-xl text-right text-black font-cairoBold dark:text-white'>تصفح الفئات</Text>
+          </View>
+          <View className=" px-3 flex-1 ">
+            <FlatList
+              data={categories}
+              inverted={false}
+              keyExtractor={item => item.id}
+              showsHorizontalScrollIndicators={false}
+              renderItem={({ item }) => (
+                <ShowCategoy
+                  item={item}
+                />
+              )}
+              firstItem={-1}
+              numColumns={2}
+              initialNumToRender={2}
+              columnWrapperStyle={{ justifyContent: 'space-between', flexDirection: 'row-reverse' }}
+            />
+          </View>
         </View>
       )}
       <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"} />
     </View>
   )
 }
-
 export default search
+const ShowCategoy = memo(({ item }) => {
+  return (
+    <View className="w-[48%] my-2">
+      <TouchableOpacity
+        className='bg-[#3a3a3a] py-5 px-4 rounded-md w-full flex-row justify-center items-center '
+        onPress={() => router.push({
+          pathname: '/storyByCategory',
+          params: item
+        })}
+      >
+        <Text className="font-cairoMedium text-secondary ">{item.title}</Text>
+      </TouchableOpacity>
+    </View>
+  )
+})

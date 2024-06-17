@@ -13,11 +13,11 @@ export default function Card({stories}) {
             <FlatList
                 horizontal
                 inverted={true}
+                initialNumToRender={2}
                 showsHorizontalScrollIndicator={false}
-                data={stories.slice(0,10)}
+                data={stories}
                 keyExtractor={(item)=>(item.id)}
                 renderItem={ItemCard}
-                firstItem={1}
             />
         </View>
     )

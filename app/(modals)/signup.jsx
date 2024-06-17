@@ -145,7 +145,7 @@ export default function SignUpScreen() {
                 className="bg-secondary w-fit flex-row-reverse p-3 mb-5 mt-5 rounded-lg shadow"
                 onPress={onSignUpPress}>
                 <Text className="text-white  text-center font-cairoMedium ml-1">انشاء حساب</Text>
-                <Icon name="arrow-back-outline" size={25} color={'#fff'} />
+                {/* <Icon name="arrow-back-outline" size={25} color={'#fff'} /> */}
               </TouchableOpacity>
             </View>
           </ScrollView>

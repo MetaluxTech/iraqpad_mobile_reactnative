@@ -92,7 +92,7 @@ export default function LoginPage() {
           className="bg-secondary flex-row p-3 rounded-lg shadow mb-8"
           onPress={onSignInPress}>
           <Text className=" ml-1 text-white text-center  font-cairoMedium">تسجيل الدخول</Text>
-          <Icon name="arrow-back-outline" size={25} color={'#fff'} />
+          {/* <Icon name="arrow-back-outline" size={25} color={'#fff'} /> */}
         </TouchableOpacity>
 
         {/* Seperator */}

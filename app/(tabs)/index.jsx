@@ -32,15 +32,15 @@ export default function home() {
   }, [stories]);
   const fetchData = () => {
     // Get Stories From Api
-    axios.get('https://www.iraqpad.com/api/story').then((response) => {
+    axios.get('https://www.iraqpad.com/api/story?order=created_at').then((response) => {
       setStories(response.data.allStories);
     });
     // Get Categories From Api
-    axios.get('https://www.iraqpad.com/api/category').then((response) => {
+    axios.get('https://www.iraqpad.com/api/category?order=created_at').then((response) => {
       SetCategories(response.data)
     });
     // Get SubCategories From Api
-    axios.get('https://www.iraqpad.com/api/subCategory').then((response) => {
+    axios.get('https://www.iraqpad.com/api/subCategory?order=created_at').then((response) => {
       SetSubcategory(response.data)
       setIsLoading(false)
     });
