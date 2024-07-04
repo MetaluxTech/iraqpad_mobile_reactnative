@@ -1,6 +1,6 @@
 import { View, Text, Image, StatusBar, ScrollView, Modal, FlatList, Dimensions } from 'react-native'
 import React, { memo, useContext, useEffect, useState } from 'react'
-import { router, useLocalSearchParams } from 'expo-router'
+import { Link, router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
@@ -13,15 +13,10 @@ export default function index() {
   const { title, picture, description, storyId } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
   const [part, setPart] = useState([]);
-  console.log(title)
   // Get part Of Story From Api
   useEffect(() => {
     
-    axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`, {
-      headers: {
-          'Cache-Control': 'no-cache'
-      }
-  }).then((response) => {
+    axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`).then((response) => {
       const partsForStory = response.data.allParts.filter(part => part.storyId === storyId);
       setPart(partsForStory);
     });
@@ -67,10 +62,11 @@ export default function index() {
           <TouchableOpacity className='p-3 ' onPress={() => setModalVisible(true)}>
             <Text className='font-cairoRegular text-md text-secondary '>عرض الفصول</Text>
           </TouchableOpacity>
-          <TouchableOpacity className='p-3 '
+          {/* <TouchableOpacity className='p-3 '
             onPress={() => router.back()}>
             <Text className='font-cairoRegular text-md text-secondary '>رجوع</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          <Link href='/' className='font-cairoRegular text-md text-secondary '>رجوع</Link>
         </View>}
         {/* Modal To Display The Parts Of this Story */}
         <Modal transparent={true} visible={modalVisible} animationType="slide">
