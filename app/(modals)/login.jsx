@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Dimensions, Keyboard, StatusBar, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 import { useAuth, useSignIn } from "@clerk/clerk-expo";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
 // import SignInWithOAuth from "../../components/SignInWithOAuth";
 import { ThemeContext } from "../../common/ThemeProvider";
@@ -33,12 +33,9 @@ export default function LoginPage() {
     <View className="bg-slate-100  flex-1 relative dark:bg-black">
       <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
       {/* Close Button */}
-      <TouchableOpacity
-        onPress={() => router.navigate('/')}
-        className="absolute top-10 left-5  z-20"
-      >
+      <Link className="absolute top-10 left-5  z-20" href={'/'}>
         <Icon name={'arrow-back-outline'} size={30} color={colorScheme == "dark" ? "white" : "black"} />
-      </TouchableOpacity>
+      </Link>
       {/* Header Style */}
       <View className='flex h-[200] items-center justify-end '>
         <View className="">
