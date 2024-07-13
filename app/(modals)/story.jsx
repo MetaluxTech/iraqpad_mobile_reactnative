@@ -23,7 +23,7 @@ export default function index() {
   const formattedDate = `${year}-${month}-${day}`;
   const [part, setPart] = useState([]);
 
-  const { colorScheme, setActivePart } = useContext(ThemeContext)
+  const { colorScheme, setActivePart ,setActiveModalPartStory,activeModalPartStory} = useContext(ThemeContext)
   // Get part Of Story From Api
   useEffect(() => {
     axios.get(`https://www.iraqpad.com/api/part?order=created_at?storyId=${id}`).then((response) => {
@@ -65,7 +65,9 @@ export default function index() {
             {/* Back */}
             <TouchableOpacity
               className="bg-white p-3 rounded-full"
-              onPress={() => router.back()}
+              onPress={() => {
+                return(router.back(),
+                setActiveModalPartStory(false))}}
             >
               <Icon
                 className=" "
@@ -77,7 +79,7 @@ export default function index() {
             {/* Parts */}
             <TouchableOpacity
               className="bg-white p-3 rounded-full"
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => setActiveModalPartStory(true)}
             >
               <Icon
                 className=" "
@@ -138,11 +140,11 @@ export default function index() {
           />
         </View>
         {/* Modal To Display The Parts Of this Story */}
-        <Modal transparent={true} visible={modalVisible} animationType="slide">
+        <Modal transparent={true} visible={activeModalPartStory} animationType="slide">
           <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] absolute bottom-0">
             <View className=' px-4 mt-2 w-full flex-row-reverse justify-between items-center h-[40px] '>
               <Text className="text-xl text-right font-cairoBold text-black dark:text-white ">كل الفصول</Text>
-              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setModalVisible(!modalVisible)}>
+              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setActiveModalPartStory(false)}>
                 <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
               </TouchableOpacity>
             </View>

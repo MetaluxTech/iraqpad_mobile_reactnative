@@ -9,7 +9,7 @@ import axios from 'axios';
 import RenderHtml from 'react-native-render-html';
 const { width } = Dimensions.get('window')
 export default function index() {
-  const { colorScheme, setActivePart, activePartId } = useContext(ThemeContext)
+  const { colorScheme, setActivePart, activePartId,setActiveModalPart,activeModalPart,setActiveModalPartStory } = useContext(ThemeContext)
   const { title, picture, description, storyId } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
   const [part, setPart] = useState([]);
@@ -38,7 +38,9 @@ export default function index() {
           {/* Back Btn */}
           <TouchableOpacity
             className="absolute top-12 z-10 left-5 bg-white p-3 rounded-full "
-            onPress={() => router.back()}
+            onPress={() =>{
+              return(router.back(),
+              setActiveModalPartStory(false))}}
           >
             <Icon
               className=" "
@@ -59,7 +61,7 @@ export default function index() {
         </View>
         {/* Bottom Content */}
         {part&&<View className='flex-row items-center justify-between py-2 px-4 w-full bg-white shadow-sm rounded-t-[30px] dark:bg-black'>
-          <TouchableOpacity className='p-3 ' onPress={() => setModalVisible(true)}>
+          <TouchableOpacity className='p-3 ' onPress={() => setActiveModalPart(true)}>
             <Text className='font-cairoRegular text-md text-secondary '>عرض الفصول</Text>
           </TouchableOpacity>
           {/* <TouchableOpacity className='p-3 '
@@ -69,11 +71,11 @@ export default function index() {
           <Link href='/' className='font-cairoRegular text-md text-secondary '>رجوع</Link>
         </View>}
         {/* Modal To Display The Parts Of this Story */}
-        <Modal transparent={true} visible={modalVisible} animationType="slide">
+        <Modal transparent={true} visible={activeModalPart} animationType="slide">
           <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] absolute bottom-0">
             <View className=' px-4 mt-2 w-full flex-row-reverse justify-between items-center h-[40px] '>
               <Text className="text-xl text-right font-cairoBold text-black dark:text-white ">كل الفصول</Text>
-              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setModalVisible(false)}>
+              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setActiveModalPart(false)}>
                 <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
               </TouchableOpacity>
             </View>
@@ -86,6 +88,7 @@ export default function index() {
                 renderItem={({ item }) => (
                   <PartStory
                     item={item}
+                    setActiveModalPart={setActiveModalPart}
                     activePartId={activePartId}
                     setActivePart={setActivePart}
                   />
@@ -101,7 +104,7 @@ export default function index() {
   )
 }
 
-const PartStory = memo(({ item, activePartId, setActivePart }) => {
+const PartStory = memo(({ item, activePartId, setActivePart ,setActiveModalPart}) => {
   const isActive = item.id === activePartId;
   return (
     <View className="mb-3">
@@ -109,6 +112,7 @@ const PartStory = memo(({ item, activePartId, setActivePart }) => {
         className="bg-secondary w-full py-3 px-6 flex-row justify-center items-center rounded-md shadow"
         onPress={() => {
           setActivePart(item.id);
+          setActiveModalPart(false)
           router.push({
             pathname: '/partstory',
             params: item
