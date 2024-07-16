@@ -24,16 +24,17 @@ export default function home() {
   useEffect(() => {
     sliders();
   }, [stories])
-  useEffect(() => {
-    const fetchNewStories = () => {
-      fetchData()
-    };
-    fetchNewStories();
-  }, [stories]);
+  // useEffect(() => {
+  //   const fetchNewStories = () => {
+  //     fetchData()
+  //   };
+  //   fetchNewStories();
+  // }, [stories]);
   const fetchData = () => {
     // Get Stories From Api
     axios.get('https://www.iraqpad.com/api/story?order=created_at').then((response) => {
-      setStories(response.data.allStories);
+      const publishedStories = response.data.allStories.filter(story => story.status === 'Published');
+      setStories(publishedStories);
     });
     // Get Categories From Api
     axios.get('https://www.iraqpad.com/api/category?order=created_at').then((response) => {
@@ -47,10 +48,9 @@ export default function home() {
   }
   // Get story that is slider From Api
   const sliders = () => {
-    const sliders = stories.filter(story => story.slider === true)
+    const sliders = stories.filter(story => story.slider === true && story.status === 'Published');
     setSliderImage(sliders)
   }
-  
   if (isLoading) {
     return (
       <View className='flex-1 w-full h-full justify-center items-center'>
@@ -65,7 +65,7 @@ export default function home() {
         <Header />
         <View className='mt-10'>
           {/* Slider Section */}
-          {/* <SliderImage sliderIamge={sliderIamge} /> */}
+          <SliderImage sliderIamge={sliderIamge} />
           {/* New Stories */}
           <View className=" px-2 mt-4  mx-1">
             <Text className="text-xl pt-3 text-right font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>

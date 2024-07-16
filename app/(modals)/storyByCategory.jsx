@@ -27,7 +27,7 @@ export default function Page() {
   const dataSearched = (text) => {
     setModalVisible(false);
     axios.get(`https://www.iraqpad.com/api/story?order=created_at?subcategory=${text}`).then((response) => {
-      const allData = response.data.allStories.filter(item => item.subcategory.title === text && item.categoryId === id);
+      const allData = response.data.allStories.filter(item => item.subcategory.title === text && item.categoryId === id &&item.status === 'Published');
       setStory(allData);
       setIsLoading(false);
       setSelected(text)
@@ -36,7 +36,7 @@ export default function Page() {
   // Display All Stories
   const allStory = () => {
     axios.get(`https://www.iraqpad.com/api/story?order=created_at?categoryId=${id}`).then((response) => {
-      const storyByCategory = response.data.allStories.filter(item => item.categoryId === id);
+      const storyByCategory = response.data.allStories.filter(item => item.categoryId === id && item.status === 'Published');
       setStory(storyByCategory);
     });
   }

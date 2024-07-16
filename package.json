@@ -19,6 +19,7 @@
     "@mantine/core": "^7.7.1",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-navigation/native": "^6.0.2",
+    "add": "^2.0.6",
     "axios": "^1.6.8",
     "deprecated-react-native-prop-types": "^5.0.0",
     "expo": "~50.0.19",
@@ -33,6 +34,7 @@
     "expo-updates": "~0.24.13",
     "expo-web-browser": "~12.8.2",
     "nativewind": "^2.0.11",
+    "or": "^0.2.0",
     "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -44,7 +46,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-snap-carousel": "^3.9.1",
     "react-native-web": "~0.19.6",
-    "react-native-webview": "13.6.4"
+    "react-native-webview": "13.6.4",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
