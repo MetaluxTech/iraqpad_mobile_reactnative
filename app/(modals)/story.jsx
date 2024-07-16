@@ -1,4 +1,4 @@
-import { View, Text, Image, StatusBar, FlatList, ScrollView, Dimensions, Modal } from 'react-native'
+import { View, Text, Image, StatusBar, FlatList, ScrollView, Dimensions, Modal, Pressable } from 'react-native'
 import React, { memo, useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -13,6 +13,7 @@ const { width } = Dimensions.get('window')
 export default function index() {
   const { isSignedIn } = useAuth()
   const [addFavorite, setAddFavorite] = useState(false);
+  const [addLike, setAddLike] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const { title, picture, description, id, created_at } = useLocalSearchParams();
   // Get The Date Of Punlish This Story
@@ -22,8 +23,8 @@ export default function index() {
   const day = dateObject.getDate();
   const formattedDate = `${year}-${month}-${day}`;
   const [part, setPart] = useState([]);
-
-  const { colorScheme, setActivePart } = useContext(ThemeContext)
+  const [activeComment, setActiveComment] = useState(false);
+  const { colorScheme, setActivePart, setActiveModalPartStory, activeModalPartStory } = useContext(ThemeContext)
   // Get part Of Story From Api
   useEffect(() => {
     axios.get(`https://www.iraqpad.com/api/part?order=created_at?storyId=${id}`).then((response) => {
@@ -65,7 +66,10 @@ export default function index() {
             {/* Back */}
             <TouchableOpacity
               className="bg-white p-3 rounded-full"
-              onPress={() => router.back()}
+              onPress={() => {
+                return (router.back(),
+                  setActiveModalPartStory(false))
+              }}
             >
               <Icon
                 className=" "
@@ -77,7 +81,7 @@ export default function index() {
             {/* Parts */}
             <TouchableOpacity
               className="bg-white p-3 rounded-full"
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => setActiveModalPartStory(true)}
             >
               <Icon
                 className=" "
@@ -106,43 +110,63 @@ export default function index() {
           </TouchableOpacity> */}
           </View>
         </View>
-        {/* Parts */}
-        {/* {part.length > 0 && <View className="py-3 px-3 ">
-          <Text className="text-2xl text-right font-cairoBold text-black dark:text-white mb-3 mt-5">الفصول</Text>
-          <FlatList
-            data={part}
-            inverted={true}
-            keyExtractor={item => item.id.toString()}
-            horizontal
-            showsHorizontalScrollIndicators={false}
-            renderItem={({ item }) => (
-              <PartStory
-                item={item}
-                setActivePart={setActivePart}
-              />
-            )}
-            firstItem={1}
-          />
-        </View>} */}
-        {/* Content */}
-        <View className="px-4 py-5  dark:bg-black mx-2 ">
-          <Text className="text-2xl font-cairoRegular text-black text-right dark:text-white mb-2">{title}</Text>
-          {/* Info Of Story */}
-          <View className='my-2 '>
-            <Text className='text-sm font-cairoLight text-darkgray text-right dark:text-whitegray'>تم النشر بتاريخ: {formattedDate}</Text>
+        {/* Container */}
+        <View className=''>
+          {/* Content */}
+          <View className="px-2 py-5  dark:bg-black mx-2 ">
+            <Text className="text-2xl font-cairoRegular text-black text-right dark:text-white mb-2">{title}</Text>
+            {/* Info Of Story */}
+            <View className='my-2 '>
+              <Text className='text-sm font-cairoLight text-darkgray text-right dark:text-whitegray'>تم النشر بتاريخ: {formattedDate}</Text>
+            </View>
+            <RenderHtml
+              contentWidth={width}
+              source={{ html: description }}
+              baseStyle={{ color: colorScheme === 'dark' ? '#EDEDED' : '#808080' }}
+            />
           </View>
-          <RenderHtml
-            contentWidth={width}
-            source={{ html: description }}
-            baseStyle={{ color: colorScheme === 'dark' ? '#EDEDED' : '#808080' }}
-          />
+          {/* Like And Comment System */}
+          {/* <View className='bg-slate-200  rounded-lg mt-5 p-3 w-full flex-row-reverse items-center justify-between'>
+            <TouchableOpacity
+              onPress={() => setAddLike(!addLike)}
+              className='flex-row justify-end  w-1/3'>
+              <Icon
+                className=" "
+                name={addLike ? 'heart' : 'heart-outline'}
+                size={25}
+                color={'red'}
+              />
+            </TouchableOpacity>
+            <Pressable className='w-1/3 ' onPress={() => { setActiveComment(true) }}>
+              <Text className='text-center text-md font-cairoMedium'>تعليق</Text>
+            </Pressable>
+            <TouchableOpacity className='flex-row justify-start  w-1/3'>
+              <Icon
+                className=""
+                name='arrow-redo-outline'
+                size={25}
+                color={'red'}
+              />
+            </TouchableOpacity>
+          </View> */}
         </View>
+        {/* Modal Comment */}
+        {/* <Modal transparent={true} visible={activeComment} animationType="slide">
+          <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] w-full absolute bottom-0">
+            <View className=' px-4 mt-2 w-full flex-row-reverse justify-between items-center h-[40px] '>
+              <Text className="text-xl text-right font-cairoBold text-black dark:text-white ">التعليقات</Text>
+              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setActiveComment(false)}>
+                <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal> */}
         {/* Modal To Display The Parts Of this Story */}
-        <Modal transparent={true} visible={modalVisible} animationType="slide">
+        <Modal transparent={true} visible={activeModalPartStory} animationType="slide">
           <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] absolute bottom-0">
             <View className=' px-4 mt-2 w-full flex-row-reverse justify-between items-center h-[40px] '>
               <Text className="text-xl text-right font-cairoBold text-black dark:text-white ">كل الفصول</Text>
-              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setModalVisible(!modalVisible)}>
+              <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setActiveModalPartStory(false)}>
                 <Icon name={'arrow-back-outline'} size={20} color={colorScheme == 'dark' ? 'white' : 'black'} />
               </TouchableOpacity>
             </View>

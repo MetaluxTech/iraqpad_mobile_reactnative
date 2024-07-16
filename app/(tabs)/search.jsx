@@ -15,7 +15,8 @@ const search = () => {
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     axios.get('https://www.iraqpad.com/api/story').then((response) => {
-      setStories(response.data.allStories);
+      const publishedStories = response.data.allStories.filter(story => story.status === 'Published');
+      setStories(publishedStories);
     });
     // Get Categories From Api
     axios.get('https://www.iraqpad.com/api/category').then((response) => {
@@ -114,7 +115,7 @@ const search = () => {
     </View>
   )
 }
-export default search
+export default search;
 const ShowCategoy = memo(({ item }) => {
   return (
     <View className="w-[48%] my-2">

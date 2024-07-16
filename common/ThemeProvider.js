@@ -6,6 +6,8 @@ export const ThemeContext = createContext();
 export const ThemeProvider = ({ children }) => {
     const { colorScheme, setColorScheme } = useColorScheme();
     const [activePartId, setActivePartId] = useState(null);
+    const [activeModalPart, setActiveModalPart] = useState(false);
+    const [activeModalPartStory, setActiveModalPartStory] = useState(false);
     const setActivePart = (partId) => {
         setActivePartId(partId);
     };
@@ -16,7 +18,7 @@ export const ThemeProvider = ({ children }) => {
             setColorScheme('light');
         }
     }
-    useEffect(()=>{
+    useEffect(() => {
         const fetchStoredId = async () => {
             const storedId = await AsyncStorage.getItem('storedId');
             if (storedId !== null) {
@@ -24,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
             }
         }
         fetchStoredId();
-    },[])
+    }, [])
     useEffect(() => {
         const storeIdPart = async () => {
             await AsyncStorage.setItem('storedId', JSON.stringify(activePartId));
@@ -46,9 +48,19 @@ export const ThemeProvider = ({ children }) => {
         }
         storeTheme();
     }, [colorScheme]);
-    
+
     return (
-        <ThemeContext.Provider value={{ colorScheme, toggleTheme, setActivePart,activePartId }}>
+        <ThemeContext.Provider
+            value={{
+                colorScheme,
+                toggleTheme,
+                setActivePart,
+                activePartId,
+                setActiveModalPart,
+                activeModalPart,
+                setActiveModalPartStory,
+                activeModalPartStory
+            }}>
             {children}
         </ThemeContext.Provider>
     )
