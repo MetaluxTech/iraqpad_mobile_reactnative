@@ -38,6 +38,7 @@ export default function Page() {
     axios.get(`https://www.iraqpad.com/api/story?order=created_at?categoryId=${id}`).then((response) => {
       const storyByCategory = response.data.allStories.filter(item => item.categoryId === id && item.status === 'Published');
       setStory(storyByCategory);
+      setSelected("التصنيفات")
     });
   }
   if (isLoading) {

@@ -27,9 +27,8 @@ const search = () => {
 
   if (isLoading) {
     return (
-      <View className='flex-1 w-full h-full justify-center items-center'>
+      <View className='flex-1 w-full h-full justify-center items-center dark:bg-black'>
         <ActivityIndicator size={'large'} color={'red'} />
-        <Text className='font-cairoRegular text-black  text-center w-full'>يتم تحميل البيانات ...</Text>
       </View>
     )
   }

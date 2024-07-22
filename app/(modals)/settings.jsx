@@ -143,7 +143,7 @@ export default function Page() {
           </TouchableOpacity>} 
         </View>
       </View>
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
+      <StatusBar barStyle={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
 
     </View>
   )
