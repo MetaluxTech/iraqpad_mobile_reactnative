@@ -1,13 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, router } from 'expo-router';
-import React, { useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 
 const { height, width } = Dimensions.get('window')
 
-export default function Card({stories}) {
-    
+export default function Card({ stories }) {
+    const renderItem = useCallback(({ item }) => <ItemCard item={item} />, []);
     return (
         <View className='mt-4 mb-3 flex-row '>
             <FlatList
@@ -16,31 +16,30 @@ export default function Card({stories}) {
                 initialNumToRender={2}
                 showsHorizontalScrollIndicator={false}
                 data={stories}
-                keyExtractor={(item)=>(item.id)}
-                renderItem={ItemCard}
+                keyExtractor={(item) => (item.id)}
+                renderItem={renderItem}
             />
         </View>
     )
 }
-const ItemCard= ({item })=>{
-    const nameAuthor =item.author.name.split(" ");
-    const titleStory =item.title.length >15 ?item.title.slice(0, 15)+'...' :item.title;
-    return(
-        <View style={{width:width*0.50}} className=" ml-2 bg-white dark:bg-blackdark rounded-lg p-2">
+const ItemCard = memo(({ item }) => {
+    const nameAuthor = item.author.name.split(" ");
+    const titleStory = item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title;
+    return (
+        <View style={{ width: width * 0.50 }} className=" ml-2 bg-white dark:bg-blackdark rounded-lg p-2">
             <TouchableOpacity
-                onPress={()=>router.push({
-                    
+                onPress={() => router.push({
                     pathname: '/story',
-                    params: item
+                    params: { id: item.id ,created_at :item.created_at}
                 })}
             >
                 {/* Image */}
                 <View className='relative'>
                     <Image
                         className=" rounded-lg "
-                        source={{uri: item.picture}}
-                        containerStyle={{borderRadius:10,flex:1}}
-                        style={{resizeMode:'cover' , width:"100%" ,height:height*0.30}}
+                        source={{ uri: item.picture }}
+                        containerStyle={{ borderRadius: 10, flex: 1 }}
+                        style={{ resizeMode: 'cover', width: "100%", height: height * 0.30 }}
                     />
                 </View>
                 {/* <View className="absolute top-2 left-2 flex-row shadow justify-center items-center bg-white py-1 px-2 rounded-lg">
@@ -57,4 +56,4 @@ const ItemCard= ({item })=>{
             </TouchableOpacity>
         </View>
     )
-}
+})

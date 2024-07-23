@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, FlatList, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator, Button } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import SliderImage from '../../components/SliderImage'
 import Card from '../../components/Card'
@@ -18,24 +18,13 @@ export default function home() {
   const [subcategory, SetSubcategory] = useState([]);
   const [sliderIamge, setSliderImage] = useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-  useEffect(() => {
-    sliders();
-  }, [stories])
-  // useEffect(() => {
-  //   const fetchNewStories = () => {
-  //     fetchData()
-  //   };
-  //   fetchNewStories();
-  // }, [stories]);
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     // Get Stories From Api
     axios.get('https://www.iraqpad.com/api/story?order=created_at').then((response) => {
-      const publishedStories = response.data.allStories.filter(story => story.status === 'Published');
+      const publishedStories = response.data.allStories.filter(story => story.status === 'Published').sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setStories(publishedStories);
     });
+
     // Get Categories From Api
     axios.get('https://www.iraqpad.com/api/category?order=created_at').then((response) => {
       SetCategories(response.data)
@@ -45,17 +34,25 @@ export default function home() {
       SetSubcategory(response.data)
       setIsLoading(false)
     });
-  }
+  },[]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
   // Get story that is slider From Api
-  const sliders = () => {
+  const sliders = useCallback(() => {
     const sliders = stories.filter(story => story.slider === true && story.status === 'Published');
     setSliderImage(sliders)
-  }
+  },[stories]);
+
+  useEffect(() => {
+    sliders();
+  }, [stories, sliders])
+
   if (isLoading) {
     return (
-      <View className='flex-1 w-full h-full justify-center items-center'>
+      <View className='flex-1 w-full h-full justify-center items-center dark:bg-black'>
         <ActivityIndicator size={'large'} color={'red'} />
-        <Text className='font-cairoRegular text-black  text-center w-full'>يتم التحميل ...</Text>
       </View>
     )
   }
@@ -65,7 +62,7 @@ export default function home() {
         <Header />
         <View className='mt-10'>
           {/* Slider Section */}
-          <SliderImage sliderIamge={sliderIamge} />
+          {/* <SliderImage sliderIamge={sliderIamge} /> */}
           {/* New Stories */}
           <View className=" px-2 mt-4  mx-1">
             <Text className="text-xl pt-3 text-right font-cairoBold dark:text-whitegray">المضافة حديثاً</Text>
@@ -87,7 +84,7 @@ export default function home() {
           </View>
         </View>
       </ScrollView>
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"}  backgroundColor={colorScheme == "dark" ? "#000" : "#fff"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
     </View>
   )
 }

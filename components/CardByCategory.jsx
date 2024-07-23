@@ -1,20 +1,20 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, router, useLocalSearchParams } from 'expo-router';
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 
 const { height, width } = Dimensions.get('window')
 
 export default function CardByCategory({story}) {
-    
+    const renderItem = useCallback(({ item }) => <ItemCard item={item} />, []);
     return (
         <View className='mt-2 mb-3 flex-row '>
             <FlatList
                 data={story}
                 inverted={false}
                 keyExtractor={item => item.id}
-                renderItem={ItemCard}
+                renderItem={renderItem}
                 firstItem={1}
             />
         </View>

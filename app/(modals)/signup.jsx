@@ -176,7 +176,7 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       )}
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"}  />
     </View>
   );
 }

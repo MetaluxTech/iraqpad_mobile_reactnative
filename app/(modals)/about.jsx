@@ -49,7 +49,7 @@ const About = () => {
           </View>
         </ScrollView>
       </View>
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"}/>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
 
     </View>
   );
