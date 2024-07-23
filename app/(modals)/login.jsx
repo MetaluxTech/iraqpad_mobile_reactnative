@@ -5,7 +5,6 @@ import { Link, router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
 // import SignInWithOAuth from "../../components/SignInWithOAuth";
 import { ThemeContext } from "../../common/ThemeProvider";
-import PwReset from "./reset";
 export default function LoginPage() {
 
   const { colorScheme } = useContext(ThemeContext);
@@ -31,7 +30,7 @@ export default function LoginPage() {
   };
   return (
     <View className="bg-slate-100  flex-1 relative dark:bg-black">
-      <StatusBar barStyle={colorScheme === "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#E2E8F0"}/>
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
       {/* Close Button */}
       <Link className="absolute top-10 left-5  z-20" href={'/'}>
         <Icon name={'arrow-back-outline'} size={30} color={colorScheme == "dark" ? "white" : "black"} />

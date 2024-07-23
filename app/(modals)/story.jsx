@@ -1,5 +1,5 @@
 import { View, Text,  StatusBar, FlatList, Modal, Pressable, ActivityIndicator } from 'react-native'
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useCallback, useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
@@ -7,6 +7,8 @@ import { useAuth } from '@clerk/clerk-expo';
 import axios from 'axios';
 import { ThemeContext } from '../../common/ThemeProvider';
 import StoryPage from '../../components/StoryPage';
+
+
 export default function page() {
   const [isLoading, setIsLoading] = useState(true);
   const { isSignedIn } = useAuth()
@@ -32,31 +34,40 @@ export default function page() {
       setIsLoading(false)
     });
   }, [id])
+  const renderStoryItem = useCallback(({ item }) => (
+    <StoryPage
+      item={item}
+      part={part}
+      setActiveModalPart={setActiveModalPart}
+      colorScheme={colorScheme}
+      setActiveModalPartStory={setActiveModalPartStory}
+    />
+  ), [part, setActiveModalPart, colorScheme, setActiveModalPartStory]);
+
+  const renderPartItem = useCallback(({ item }) => (
+    <PartStory
+      item={item}
+      setActiveModalPart={setActiveModalPart}
+      setActiveModalPartStory={setActiveModalPartStory}
+      setActivePart={setActivePart}
+    />
+  ), [setActiveModalPart, setActiveModalPartStory, setActivePart]);
 
   if (isLoading) {
     return (
       <View className='flex-1 w-full h-full justify-center items-center dark:bg-black'>
         <ActivityIndicator size={'large'} color={'red'} />
-        <Text className='font-cairoRegular text-black  text-center w-full'>يتم التحميل ...</Text>
       </View>
     )
   }
   return (
-    <View className='flex-1 dark:bg-black '>
+    <View className='flex-1 dark:bg-black z-10'>
       <FlatList
         data={story}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
         initialNumToRender={2}
-        renderItem={({ item }) => (
-          <StoryPage
-            item={item}
-            part={part}
-            setActiveModalPart={setActiveModalPart}
-            colorScheme={colorScheme}
-            setActiveModalPartStory={setActiveModalPartStory}
-          />
-        )}
+        renderItem={renderStoryItem}
       />
       {/* Make Space Between Description And Comment System */}
       <View style={{ flex: 1 }} />
@@ -97,7 +108,7 @@ export default function page() {
       </Modal> */}
       {/* Modal To Display The Parts Of this Story */}
       <Modal transparent={true} visible={activeModalPartStory} animationType="slide">
-        <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30px] pt-5 h-[90vh] absolute bottom-0">
+        <View className="bg-white dark:bg-[#111] shadow-sm rounded-t-[30] pt-5 h-[90vh] absolute bottom-0">
           <View className=' px-4 mt-2 w-full flex-row-reverse justify-between items-center h-[40px] '>
             <Text className="text-xl text-right font-cairoBold text-black dark:text-white ">كل الفصول</Text>
             <TouchableOpacity className='border border-[#333] dark:border-[#585757] rounded-full p-2 ' onPress={() => setActiveModalPartStory(false)}>
@@ -110,19 +121,12 @@ export default function page() {
               inverted={false}
               keyExtractor={item => item.id}
               initialNumToRender={7}
-              renderItem={({ item }) => (
-                <PartStory
-                  item={item}
-                  setActiveModalPart={setActiveModalPart}
-                  setActiveModalPartStory={setActiveModalPartStory}
-                  setActivePart={setActivePart}
-                />
-              )}
+              renderItem={renderPartItem}
             />
           </View>
         </View>
       </Modal>
-      <StatusBar barStyle={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
     </View>
   )
 }

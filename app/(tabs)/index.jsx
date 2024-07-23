@@ -1,5 +1,5 @@
 import { View, Text, Dimensions, FlatList, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator, Button } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import SliderImage from '../../components/SliderImage'
 import Card from '../../components/Card'
@@ -18,7 +18,7 @@ export default function home() {
   const [subcategory, SetSubcategory] = useState([]);
   const [sliderIamge, setSliderImage] = useState([]);
 
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     // Get Stories From Api
     axios.get('https://www.iraqpad.com/api/story?order=created_at').then((response) => {
       const publishedStories = response.data.allStories.filter(story => story.status === 'Published').sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -34,19 +34,20 @@ export default function home() {
       SetSubcategory(response.data)
       setIsLoading(false)
     });
-  }
+  },[]);
+
   useEffect(() => {
     fetchData();
-
-  }, []);
+  }, [fetchData]);
   // Get story that is slider From Api
-  const sliders = () => {
+  const sliders = useCallback(() => {
     const sliders = stories.filter(story => story.slider === true && story.status === 'Published');
     setSliderImage(sliders)
-  }
+  },[stories]);
+
   useEffect(() => {
     sliders();
-  }, [stories])
+  }, [stories, sliders])
 
   if (isLoading) {
     return (
@@ -83,7 +84,7 @@ export default function home() {
           </View>
         </View>
       </ScrollView>
-      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} backgroundColor={colorScheme == "dark" ? "#000" : "#fff"} />
+      <StatusBar style={colorScheme == "dark" ? "light" : "dark"} />
     </View>
   )
 }

@@ -15,8 +15,8 @@ const StoryPage = ({ item, part, colorScheme, setActiveModalPart, setActiveModal
     const day = dateObject.getDate();
     const formattedDate = `${year}-${month}-${day}`;
     return (
-        <View>
-            <View className='relative'>
+        <View className="">
+            <View className='relative '>
                 <Image
                     className="h-[250] w-full"
                     source={{ uri: item.picture }}
@@ -104,4 +104,4 @@ const StoryPage = ({ item, part, colorScheme, setActiveModalPart, setActiveModal
     )
 }
 
-export default StoryPage
+export default memo(StoryPage) 

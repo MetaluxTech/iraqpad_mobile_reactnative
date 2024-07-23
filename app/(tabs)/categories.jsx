@@ -123,7 +123,7 @@ export default function Page() {
     //     {story.length > 0 ?(<CardAllStory story={story} />) : (<Text className="font-cairoBold mt-5 text-xl text-center dark:text-white">لا توجد قصص</Text>)}
     //   </View>
     // </View>
-    <View className="flex-1 justify-center items-center">
+    <View className="flex-1 justify-center items-center dark:bg-black">
       <Text className="font-cairoBold dark:text-white">هذه الصفحة قيد الأنشاء حالياً</Text>
     </View>
   )

@@ -1,12 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link, router } from 'expo-router';
-import React, { useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 
 const { height, width } = Dimensions.get('window')
 
 export default function Card({ stories }) {
+    const renderItem = useCallback(({ item }) => <ItemCard item={item} />, []);
     return (
         <View className='mt-4 mb-3 flex-row '>
             <FlatList
@@ -16,12 +17,12 @@ export default function Card({ stories }) {
                 showsHorizontalScrollIndicator={false}
                 data={stories}
                 keyExtractor={(item) => (item.id)}
-                renderItem={({ item }) => (<ItemCard item={item} />)}
+                renderItem={renderItem}
             />
         </View>
     )
 }
-const ItemCard = ({ item }) => {
+const ItemCard = memo(({ item }) => {
     const nameAuthor = item.author.name.split(" ");
     const titleStory = item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title;
     return (
@@ -55,4 +56,4 @@ const ItemCard = ({ item }) => {
             </TouchableOpacity>
         </View>
     )
-}
+})

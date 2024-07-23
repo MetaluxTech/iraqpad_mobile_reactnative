@@ -1,5 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { memo, useCallback, useContext, useEffect, useState } from 'react'
 import { router } from 'expo-router';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,6 +22,11 @@ export default function categoriesModals() {
             </View>
         )
     }
+    const renderCategories = useCallback(() => {
+        return (
+            ({ item }) => (<ShowCategoy item={item} />)
+        )
+    })
     return (
         <View className="shadow-lg bg-slate-200 dark:bg-black flex-1 pt-5">
             <View className='px-4 mb-10 mt-5 w-full flex-row-reverse justify-between items-center h-[50]'>
@@ -47,8 +52,7 @@ export default function categoriesModals() {
                     inverted={false}
                     keyExtractor={item => item.id}
                     showsHorizontalScrollIndicators={false}
-                    renderItem={showCategoy}
-                    firstItem={-1}
+                    renderItem={renderCategories}
                     numColumns={4}
                     columnWrapperStyle={{ justifyContent: 'center', flexDirection: 'row-reverse' }}
                 />
@@ -56,7 +60,7 @@ export default function categoriesModals() {
         </View>
     )
 }
-const showCategoy = ({ item }) => {
+const ShowCategoy = memo(({ item }) => {
     return (
         <View>
             <TouchableOpacity
@@ -70,4 +74,4 @@ const showCategoy = ({ item }) => {
             </TouchableOpacity>
         </View>
     )
-}
+})
