@@ -23,23 +23,27 @@ export default function Card({ stories }) {
     )
 }
 const ItemCard = memo(({ item }) => {
-    const nameAuthor = item.author.name.split(" ");
+    const nameAuthor = item.author.name;
     const titleStory = item.title.length > 15 ? item.title.slice(0, 15) + '...' : item.title;
     return (
-        <View style={{ width: width * 0.50 }} className=" ml-2 bg-white dark:bg-blackdark rounded-lg p-2">
+        <View style={{ width: width * 0.60 }} className=" ml-2 bg-white dark:bg-blackdark rounded-lg ">
             <TouchableOpacity
                 onPress={() => router.push({
                     pathname: '/story',
-                    params: { id: item.id ,created_at :item.created_at}
+                    params: { id: item.id, created_at: item.created_at }
                 })}
             >
                 {/* Image */}
-                <View className='relative'>
+                <View className='relative '>
                     <Image
                         className=" rounded-lg "
                         source={{ uri: item.picture }}
                         containerStyle={{ borderRadius: 10, flex: 1 }}
-                        style={{ resizeMode: 'cover', width: "100%", height: height * 0.30 }}
+                        style={{ resizeMode: 'cover', width: "100%", height: height * 0.40 }}
+                    />
+                    <LinearGradient
+                        className="absolute rounded-lg bottom-0 w-full h-full"
+                        colors={['transparent', 'rgba(255,0,0,5)']}
                     />
                 </View>
                 {/* <View className="absolute top-2 left-2 flex-row shadow justify-center items-center bg-white py-1 px-2 rounded-lg">
@@ -47,11 +51,19 @@ const ItemCard = memo(({ item }) => {
                     <Ionicons name='star' size={20} color={'yellow'}/>
                 </View> */}
                 {/* Content */}
-                <View className="py-3 px-2  flex-col justify-center items-end ">
-                    <Text className="text-lg text-right font-cairoMedium dark:text-white">{titleStory}</Text>
-                    <Text className="text-darkgray dark:text-whitegray text-right font-cairoLight">الكاتب : <Text className="text-[#444] dark:text-white font-cairoMedium text-right">{nameAuthor[0]}</Text></Text>
-                    <Text className="text-darkgray dark:text-whitegray text-right font-cairoLight">الفئة : <Text className="text-secondary font-cairoMedium text-right">{item.category.title}</Text></Text>
-                    <Text className="text-darkgray dark:text-whitegray text-right font-cairoLight">التصنيف : <Text className="text-secondary font-cairoMedium text-right">{item.subcategory.title}</Text></Text>
+                <View className="absolute w-full bottom-3 right-0  px-2 flex-col justify-center items-end ">
+                    <Text className="text-lg text-right font-cairoBold text-white mb-0">{titleStory}</Text>
+                    <Text className="text-white text-sm  font-cairoLight text-right">
+                        للكاتب {nameAuthor}
+                    </Text>
+                    <View className='flex-row-reverse  justify-center mt-2 w-full items-center'>
+                        <Text className="text-white p-1   rounded-sm shadow-md bg-[#015f88] font-cairoMedium text-right">
+                            {item.category.title}
+                        </Text>
+                        <Text className="text-white mr-2 p-1 rounded-sm shadow-md bg-[#014d6e] font-cairoMedium text-right">
+                            {item.subcategory.title}
+                        </Text>
+                    </View>
                 </View>
             </TouchableOpacity>
         </View>

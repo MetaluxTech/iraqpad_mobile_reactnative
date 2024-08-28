@@ -23,18 +23,9 @@ export default function home() {
     axios.get('https://www.iraqpad.com/api/story?order=created_at').then((response) => {
       const publishedStories = response.data.allStories.filter(story => story.status === 'Published').sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       setStories(publishedStories);
-    });
-
-    // Get Categories From Api
-    axios.get('https://www.iraqpad.com/api/category?order=created_at').then((response) => {
-      SetCategories(response.data)
-    });
-    // Get SubCategories From Api
-    axios.get('https://www.iraqpad.com/api/subCategory?order=created_at').then((response) => {
-      SetSubcategory(response.data)
       setIsLoading(false)
     });
-  },[]);
+  },[stories]);
 
   useEffect(() => {
     fetchData();
