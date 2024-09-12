@@ -6,7 +6,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "splash":{
+    "splash": {
       "image": "./assets/images/splash.png",
       "backgroundColor": "#ffffff"
     },
@@ -17,9 +17,7 @@
         "projectId": "5095a4bb-1b66-4bd8-8e63-decfec2e6415"
       }
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    
     "platforms": [
       "android",
       "ios"
@@ -37,7 +35,10 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
-    ]
+      "expo-router",
+      "expo-font",
+      "expo-secure-store"
+    ],
+    "owner": "son_20"
   }
 }
