@@ -1,4 +1,4 @@
-import { View, Text,  StatusBar, FlatList, Modal, Pressable, ActivityIndicator } from 'react-native'
+import { View, Text, StatusBar, FlatList, Modal, Pressable, ActivityIndicator } from 'react-native'
 import React, { memo, useCallback, useContext, useEffect, useState } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -17,7 +17,7 @@ export default function page() {
   const [part, setPart] = useState([]);
   const [story, setStory] = useState([]);
   const [activeComment, setActiveComment] = useState(false);
-  const { colorScheme, setActivePart, setActiveModalPartStory, activeModalPartStory,setActiveModalPart } = useContext(ThemeContext)
+  const { colorScheme, setActivePart, setActiveModalPartStory, activeModalPartStory, setActiveModalPart } = useContext(ThemeContext)
   const { id } = useLocalSearchParams();
 
   // Get part Of Story From Api
@@ -131,13 +131,14 @@ export default function page() {
   )
 }
 
-const PartStory = memo(({ item, setActivePart,setActiveModalPartStory,setActiveModalPart }) => {
+const PartStory = memo(({ item, setActivePart, setActiveModalPartStory, setActiveModalPart }) => {
 
   return (
     <View className="mb-3 ">
       <TouchableOpacity
         className="bg-secondary w-full py-3 px-6 flex-row justify-center items-center rounded-md shadow"
         onPress={() => {
+          
           setActivePart(item.id);
           setActiveModalPartStory(false)
           setActiveModalPart(false)

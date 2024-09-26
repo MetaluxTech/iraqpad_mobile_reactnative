@@ -4,7 +4,7 @@ import { Stack, router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import * as SecureStore from "expo-secure-store";
-import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import Constants from 'expo-constants';
 import { ThemeProvider } from '../common/ThemeProvider';
 import { I18nManager } from "react-native";
@@ -52,7 +52,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     if (loaded) {
-       SplashScreen.hideAsync();
+      SplashScreen.hideAsync();
     }
   }, [loaded]);
 
@@ -67,7 +67,9 @@ export default function RootLayout() {
         publishableKey={Constants.expoConfig.extra.clerkPublishableKey}
         tokenCache={tokenCache}
       >
-        <RootLayoutNav />
+        <ClerkLoaded>
+          <RootLayoutNav />
+        </ClerkLoaded>
       </ClerkProvider>
     </ThemeProvider>
   );
@@ -96,7 +98,7 @@ function RootLayoutNav() {
           presentation: 'modal',
         }} />
       <Stack.Screen name="(modals)/partstory" options={{
-        presentation: 'modal',
+        // presentation: 'modal',
       }} />
       {/* <Stack.Screen name="(modals)/categoriesModals" options={{
         presentation: 'modal',
