@@ -98,7 +98,7 @@ function RootLayoutNav() {
           presentation: 'modal',
         }} />
       <Stack.Screen name="(modals)/partstory" options={{
-        presentation: 'modal',
+        // presentation: 'modal',
       }} />
       {/* <Stack.Screen name="(modals)/categoriesModals" options={{
         presentation: 'modal',

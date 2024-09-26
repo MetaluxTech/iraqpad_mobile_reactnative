@@ -12,10 +12,12 @@ const { width } = Dimensions.get('window');
 export default function Page() {
   const { colorScheme, setActivePart, activePartId, setActiveModalPart, activeModalPart, setActiveModalPartStory } = useContext(ThemeContext);
   const { id, storyId } = useLocalSearchParams();
+
   const [part, setPart] = useState([]);
   const [singlePart, setSinglePart] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  console.log('id:' + id)
+  console.log(singlePart)
   useEffect(() => {
     axios.get(`https://www.iraqpad.com/api/part?storyId=${storyId}`).then((response) => {
       const partsForStory = response.data.allParts.filter(part => part.storyId === storyId);
