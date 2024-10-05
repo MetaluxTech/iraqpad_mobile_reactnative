@@ -42,8 +42,8 @@ const ItemCard = memo(({ item }) => {
                         style={{ resizeMode: 'cover', width: "100%", height: height * 0.40 }}
                     />
                     <LinearGradient
-                        className="absolute rounded-lg bottom-0 w-full h-full"
-                        colors={['transparent', 'rgba(255,0,0,5)']}
+                        className="absolute rounded-lg bottom-0 w-full h-[55%]"
+                        colors={['transparent', 'rgba(255,0,0,5)','rgba(255,0,0,9)']}
                     />
                 </View>
                 {/* <View className="absolute top-2 left-2 flex-row shadow justify-center items-center bg-white py-1 px-2 rounded-lg">
