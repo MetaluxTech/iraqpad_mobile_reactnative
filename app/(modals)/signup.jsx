@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { ScrollView, StatusBar, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useOAuth, useSignUp } from "@clerk/clerk-expo";
+import {  useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
-import { useWarmUpBrowser } from '../../hooks/useWarmUpBrowser';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { ThemeContext } from "../../common/ThemeProvider";
 export default function SignUpScreen() {
 
 
-  // useWarmUpBrowser();
   const router = useRouter();
   const { isLoaded, signUp, setActive } = useSignUp();
   const { colorScheme } = useContext(ThemeContext)
@@ -43,6 +41,8 @@ export default function SignUpScreen() {
       }
       if(err.errors[0].code ==="form_param_nil"){
         alert("يرجى ملئ الحقول المطلوبة")
+      }else {
+        console.log(err.errors[0]);
       }
     }
   };

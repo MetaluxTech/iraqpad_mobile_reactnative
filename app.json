@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "IraqPad",
+    "name": "Iraq Pad",
     "scheme": "myapp",
     "slug": "iraqpad",
     "version": "1.0.0",
@@ -11,13 +11,13 @@
       "backgroundColor": "#ffffff"
     },
     "extra": {
-      "clerkPublishableKey": "pk_test_Zm9uZC13b2xmLTM5LmNsZXJrLmFjY291bnRzLmRldiQ",
-      "clerkSecretKey": "​sk_test_zfrtbX5riGWMKc8PgK06dIBAl21iHQpaH1dTsnZLA0",
+      "clerkPublishableKey": "pk_live_Y2xlcmsuaXJhcXBhZC5jb20k",
+      "clerkSecretKey": "sk_live_6gnaMCV9c7WdYbCgwGCQFRidVmNbGxiK7w8WmyD6VF",
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "5903f9c4-35d7-45bb-9d92-ac89ca3a7af2"
+        "projectId": "79c13d9c-15e2-4c88-b84a-41880b3cb05e"
       }
     },
     "platforms": [
@@ -41,6 +41,6 @@
       "expo-font",
       "expo-secure-store"
     ],
-    "owner": "metaluxtech"
+    "owner": "iraqpad"
   }
 }
