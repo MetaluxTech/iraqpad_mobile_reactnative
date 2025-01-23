@@ -37,25 +37,10 @@ const SignInWithOAuth = () => {
       onPress={() => onSelectAuth(Strategy.Google)}
     >
       <Icon name={'logo-google'} size={30} color={colorScheme === "dark" ? "white" : "black"} />
-      <Text className="ml-3 text-darkgray dark:text-white font-cairoLight">تسجيل دخول باستخدام حساب كوكل</Text>
+      <Text className="ml-3 text-darkgray dark:text-white font-cairoLight">تسجيل دخول باستخدام كوكل</Text>
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
-  button: {
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 5,
-    borderRadius: 8,
-  },
-  text: {
-    marginLeft: 10,
-    fontFamily: 'cairoLight',
-    fontSize: 16,
-  },
-});
 
 export default SignInWithOAuth;
