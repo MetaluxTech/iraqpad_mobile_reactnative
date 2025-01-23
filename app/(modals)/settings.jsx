@@ -77,7 +77,7 @@ export default function Page() {
           </View>
         </TouchableOpacity>
         {/* Support us */}
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <View className="flex-row-reverse justify-between items-center p-4 ">
             <View className='flex-row-reverse items-center' >
             <Text className="font-cairoBold text-md dark:text-whitegray ml-2">ادعمنا لتقديم المزيد</Text>
@@ -97,9 +97,9 @@ export default function Page() {
               />
             </View>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* Rate the app */}
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <View className="flex-row-reverse justify-between items-center p-4 ">
             <Text className="font-cairoRegular text-md dark:text-whitegray">تقييم التطبيق</Text>
             <Icon 
@@ -110,9 +110,9 @@ export default function Page() {
                 color={colorScheme=='dark' ?'white':'black'} 
             />
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* Invite a friend */}
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <View className="flex-row-reverse justify-between items-center p-4 ">
             <Text className="font-cairoRegular text-md dark:text-whitegray">دعوة صديق</Text>
             <Icon 
@@ -123,7 +123,7 @@ export default function Page() {
                 color={colorScheme=='dark' ?'white':'black'} 
             />
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* Login & Logout Btn */}
         <View className=''>
         {isSignedIn ?

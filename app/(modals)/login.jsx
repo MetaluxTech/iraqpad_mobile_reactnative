@@ -3,10 +3,12 @@ import { Dimensions, Keyboard, StatusBar, Text, TextInput, TouchableOpacity, Tou
 import { useAuth, useSignIn } from "@clerk/clerk-expo";
 import { Link, router } from "expo-router";
 import Icon from 'react-native-vector-icons/Ionicons';
-// import SignInWithOAuth from "../../components/SignInWithOAuth";
 import { ThemeContext } from "../../common/ThemeProvider";
-export default function LoginPage() {
+import SignInWithOAuth from "../../components/SignInWithOAuth";
+import { useWarmUpBrowser } from "../../hooks/useWarmUpBrowser";
 
+export default function LoginPage() {
+  useWarmUpBrowser();
   const { colorScheme } = useContext(ThemeContext);
   const { signIn, setActive, isLoaded } = useSignIn();
   const { isSignedIn } = useAuth()
