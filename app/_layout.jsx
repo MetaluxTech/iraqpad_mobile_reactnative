@@ -1,7 +1,7 @@
 
 import { useFonts } from 'expo-font';
 import { Stack, router } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
+// import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import * as SecureStore from "expo-secure-store";
 import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
@@ -44,17 +44,17 @@ export default function RootLayout() {
     regular: require('../assets/fonts/Cairo-Regular.ttf'),
     light: require('../assets/fonts/Cairo-Light.ttf')
   });
-  SplashScreen.preventAutoHideAsync();
+  // SplashScreen.preventAutoHideAsync();
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     if (error) throw error;
   }, [error]);
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  // useEffect(() => {
+  //   if (loaded) {
+  //     SplashScreen.hideAsync();
+  //   }
+  // }, [loaded]);
 
   if (!loaded) {
     return null;
